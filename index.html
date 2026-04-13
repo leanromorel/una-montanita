@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una Montañita 🌿</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Arial, sans-serif;
+  color: #1a3a1a;
+  background-image: url('./fondo.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(240, 247, 240, 0.88);
+  z-index: 0;
+  pointer-events: none;
+}
+
+header, .hero, .banner-animado, .porque, .como-comprar, .montana-mate, .products, .section-title, .section-subtitle, .regalo-banner, .redes, footer, .popup-overlay, .cart-overlay, .gracias-overlay {
+  position: relative;
+  z-index: 1;
+}
+
+header {
+  background: #2d6a2d;
+  color: white;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo img {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.5);
+}
+
+.cart-btn {
+  background: white;
+  color: #2d6a2d;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s;
+}
+
+.cart-btn:hover { background: #e0f0e0; }
+
+.cart-count {
+  background: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #2d6a2d, #4a9e4a);
+  color: white;
+  text-align: center;
+  padding: 50px 20px;
+  animation: fadeIn 1s ease;
+}
+
+.hero-logo {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 4px solid rgba(255,255,255,0.5);
+  margin-bottom: 12px;
+  background: white;
+  padding: 6px;
+}
+
+.hero h1 { font-size: 38px; margin-bottom: 8px; }
+.hero p { font-size: 18px; opacity: 0.9; margin-bottom: 18px; }
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 30px;
+  padding: 8px 24px;
+  font-size: 15px;
+}
+
+.banner-animado {
+  background: #1e5c1e;
+  padding: 16px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.banner-track {
+  display: inline-flex;
+  gap: 40px;
+  animation: scrollBanner 22s linear infinite;
+}
+
+.banner-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  opacity: 0.95;
+}
+
+.banner-icon { font-size: 22px; }
+
+@keyframes scrollBanner {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.porque {
+  background: #2d6a2d;
+  color: white;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.porque h2 { font-size: 26px; margin-bottom: 10px; }
+.porque .subtitulo { font-size: 15px; opacity: 0.8; margin-bottom: 30px; }
+
+.porque-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.porque-item {
+  background: rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 24px 16px;
+  transition: 0.2s;
+}
+
+.porque-item:hover { background: rgba(255,255,255,0.2); transform: translateY(-4px); }
+
+.porque-img-placeholder {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+
+.porque-titulo { font-size: 15px; font-weight: bold; margin-bottom: 6px; }
+.porque-desc { font-size: 13px; opacity: 0.85; line-height: 1.5; }
+
+.como-comprar {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.como-comprar h2 { font-size: 26px; color: #2d6a2d; margin-bottom: 30px; }
+
+.pasos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.paso {
+  background: white;
+  border-radius: 16px;
+  padding: 24px 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.paso-num {
+  background: #2d6a2d;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0 auto 12px;
+}
+
+.paso-img-placeholder {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #e8f5e9;
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+
+.paso-titulo { font-size: 15px; font-weight: bold; color: #1a3a1a; margin-bottom: 6px; }
+.paso-desc { font-size: 13px; color: #666; line-height: 1.4; }
+
+.section-title {
+  text-align: center;
+  padding: 36px 20px 8px;
+  font-size: 26px;
+  color: #2d6a2d;
+}
+
+.section-subtitle {
+  text-align: center;
+  font-size: 15px;
+  color: #2d6a2d;
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+
+.regalo-banner {
+  text-align: center;
+  background: #fff8e1;
+  border: 2px dashed #f9a825;
+  border-radius: 12px;
+  padding: 12px 20px;
+  max-width: 600px;
+  margin: 0 auto 24px;
+  font-size: 15px;
+  color: #5d4037;
+  font-weight: bold;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  padding: 0 20px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: fadeUp 0.6s ease both;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+}
+
+.regalo-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #f9a825;
+  color: white;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.product-img-wrap {
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  background: #e8f5e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s;
+}
+
+.product-card:hover .product-img-wrap img { transform: scale(1.05); }
+
+.product-info { padding: 14px 16px; }
+.product-name { font-size: 16px; font-weight: bold; color: #1a3a1a; margin-bottom: 4px; }
+.product-price { font-size: 20px; font-weight: bold; color: #2d6a2d; margin-bottom: 6px; }
+
+.stock-badge {
+  display: inline-block;
+  background: #fff3cd;
+  color: #856404;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.stock-badge.agotado { background: #f8d7da; color: #842029; }
+
+.ver-btn {
+  width: 100%;
+  background: #f0f7f0;
+  color: #2d6a2d;
+  border: 2px solid #2d6a2d;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: bold;
+}
+
+.ver-btn:hover { background: #2d6a2d; color: white; }
+
+.montana-mate {
+  background: #2d6a2d;
+  color: white;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.montana-mate h2 { font-size: 26px; margin-bottom: 8px; }
+.montana-mate .subtitulo { font-size: 15px; opacity: 0.8; margin-bottom: 30px; }
+
+.montana-pasos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.montana-paso {
+  background: rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 20px 14px;
+  transition: 0.2s;
+}
+
+.montana-paso:hover { background: rgba(255,255,255,0.2); transform: translateY(-4px); }
+
+.montana-paso-num {
+  background: white;
+  color: #2d6a2d;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  margin: 0 auto 10px;
+}
+
+.montana-paso-img-placeholder {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+
+.montana-paso-titulo { font-size: 14px; font-weight: bold; margin-bottom: 6px; }
+.montana-paso-desc { font-size: 12px; opacity: 0.85; line-height: 1.4; }
+
+.montana-tip {
+  margin: 24px auto 0;
+  background: rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 14px 20px;
+  max-width: 600px;
+  font-size: 14px;
+  opacity: 0.95;
+  line-height: 1.5;
+}
+
+.popup-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 300;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.popup-overlay.open { display: flex; }
+
+.popup {
+  background: white;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.popup-img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px 20px 0 0;
+}
+
+.popup-body { padding: 20px; }
+.popup-name { font-size: 22px; font-weight: bold; color: #1a3a1a; margin-bottom: 8px; }
+.popup-desc { font-size: 15px; color: #555; margin-bottom: 10px; line-height: 1.5; }
+.popup-regalo { background: #fff8e1; border-radius: 10px; padding: 8px 12px; font-size: 14px; color: #5d4037; font-weight: bold; margin-bottom: 10px; }
+.popup-stock { margin-bottom: 10px; }
+.popup-price { font-size: 26px; font-weight: bold; color: #2d6a2d; margin-bottom: 16px; }
+
+.popup-add-btn {
+  width: 100%;
+  background: #2d6a2d;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-bottom: 10px;
+}
+
+.popup-add-btn:hover { background: #1e4d1e; }
+.popup-add-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+.popup-close-btn {
+  width: 100%;
+  background: #f0f0f0;
+  color: #555;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.cart-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.cart-overlay.open { display: flex; }
+
+.cart-modal {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.cart-modal h2 { color: #2d6a2d; margin-bottom: 16px; font-size: 22px; }
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.cart-item-name { flex: 1; color: #1a3a1a; }
+.cart-item-price { color: #2d6a2d; font-weight: bold; margin: 0 10px; }
+.qty-controls { display: flex; align-items: center; gap: 8px; }
+
+.qty-btn {
+  background: #e8f5e9;
+  border: none;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #2d6a2d;
+  font-weight: bold;
+}
+
+.cart-total { text-align: right; font-size: 20px; font-weight: bold; color: #2d6a2d; margin-top: 14px; }
+.cart-empty { text-align: center; color: #999; padding: 20px; font-size: 16px; }
+
+.wpp-btn {
+  display: block;
+  width: 100%;
+  background: #25d366;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: 0.2s;
+}
+
+.wpp-btn:hover { background: #1ebe57; }
+
+.close-btn {
+  display: block;
+  width: 100%;
+  background: #eee;
+  color: #555;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.gracias-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 400;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.gracias-overlay.open { display: flex; }
+
+.gracias-modal {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 24px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  animation: popIn 0.3s ease;
+}
+
+.gracias-icon { font-size: 64px; margin-bottom: 16px; }
+.gracias-modal h2 { font-size: 26px; color: #2d6a2d; margin-bottom: 10px; }
+.gracias-modal p { font-size: 16px; color: #555; margin-bottom: 24px; line-height: 1.5; }
+
+.gracias-btn {
+  background: #2d6a2d;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.gracias-btn:hover { background: #1e4d1e; }
+
+.redes {
+  background: #2d6a2d;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.redes h2 { font-size: 22px; margin-bottom: 20px; }
+
+.redes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.red-fila {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 14px;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: white;
+  transition: 0.2s;
+}
+
+.red-fila:hover { background: rgba(255,255,255,0.22); }
+
+.red-fila img {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.red-info { display: flex; flex-direction: column; text-align: left; flex: 1; }
+.red-usuario { font-size: 16px; font-weight: bold; }
+.red-accion { font-size: 13px; opacity: 0.75; }
+.red-arrow { font-size: 20px; opacity: 0.7; }
+
+footer {
+  background: #1a3a1a;
+  color: #aaa;
+  text-align: center;
+  padding: 16px;
+  font-size: 13px;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.product-card:nth-child(1) { animation-delay: 0.1s; }
+.product-card:nth-child(2) { animation-delay: 0.2s; }
+.product-card:nth-child(3) { animation-delay: 0.3s; }
+.product-card:nth-child(4) { animation-delay: 0.4s; }
+.product-card:nth-child(5) { animation-delay: 0.5s; }
+.product-card:nth-child(6) { animation-delay: 0.6s; }
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 26px; }
+  .hero p { font-size: 15px; }
+  .products { padding: 0 12px 40px; gap: 14px; }
+  .product-img-wrap { height: 220px; }
+  .popup-img { height: 240px; }
+  .montana-pasos { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="./logo.png" alt="Logo" onerror="this.style.display='none'">
+    Una Montañita
+  </div>
+  <button class="cart-btn" onclick="abrirCarrito()">
+    🛒 Carrito
+    <div class="cart-count" id="cart-count">0</div>
+  </button>
+</header>
+
+<div class="hero">
+  <img class="hero-logo" src="./logo.png" alt="Logo" onerror="this.style.display='none'">
+  <h1>Una Montañita</h1>
+  <p>"El sabor que nace de la montaña"</p>
+  <div class="hero-badge">🚩 Envíos disponibles 🚩</div>
+</div>
+
+<div class="banner-animado">
+  <div class="banner-track">
+    <div class="banner-item"><span class="banner-icon">🌿</span> Yerba Natural</div>
+    <div class="banner-item"><span class="banner-icon">🏔️</span> Una Montañita</div>
+    <div class="banner-item"><span class="banner-icon">🧉</span> Sabor especial</div>
+    <div class="banner-item"><span class="banner-icon">🪄</span> Calidad</div>
+    <div class="banner-item"><span class="banner-icon">✨</span> Lo Mejor del Mate</div>
+    <div class="banner-item"><span class="banner-icon">🎁</span> Regalo Incluido</div>
+    <div class="banner-item"><span class="banner-icon">🎲</span> Variedad</div>
+    <div class="banner-item"><span class="banner-icon">🐎</span> Tradición Matera</div>
+    <div class="banner-item"><span class="banner-icon">🧉</span> Compartí el Mate</div>
+    <div class="banner-item"><span class="banner-icon">🌿</span> Yerba Natural</div>
+    <div class="banner-item"><span class="banner-icon">🏔️</span> Una Montañita</div>
+    <div class="banner-item"><span class="banner-icon">🧉</span> Sabor especial</div>
+    <div class="banner-item"><span class="banner-icon">🪄</span> Calidad</div>
+    <div class="banner-item"><span class="banner-icon">✨</span> Lo Mejor del Mate</div>
+    <div class="banner-item"><span class="banner-icon">🎁</span> Regalo Incluido</div>
+    <div class="banner-item"><span class="banner-icon">🎲</span> Variedad</div>
+    <div class="banner-item"><span class="banner-icon">🐎</span> Tradición Matera</div>
+    <div class="banner-item"><span class="banner-icon">🧉</span> Compartí el Mate</div>
+  </div>
+</div>
+
+<div class="porque">
+  <h2>¿Por qué elegirnos?</h2>
+  <div class="porque-grid">
+    <div class="porque-item">
+      <div class="porque-img-placeholder">🌿</div>
+      <div class="porque-titulo">Yerba de calidad real</div>
+      <div class="porque-desc">Solo vendemos lo que nosotros mismos tomamos. Nada de marcas dudosas y solo marcas conocidas.</div>
+    </div>
+    <div class="porque-item">
+      <div class="porque-img-placeholder">🎁</div>
+      <div class="porque-titulo">Regalo en cada compra</div>
+      <div class="porque-desc">Cada pedido incluye una sorpresa para vos. Porque comprar en Una Montañita tiene que ser una experiencia comoda.</div>
+    </div>
+    <div class="porque-item">
+      <div class="porque-img-placeholder">💬</div>
+      <div class="porque-titulo">Atención directa y real</div>
+      <div class="porque-desc">Te atendemos nosotros mismos por WhatsApp. Sin bots, sin esperas eternas, con ganas de ayudarte de verdad.</div>
+    </div>
+    <div class="porque-item">
+      <div class="porque-img-placeholder">🚀</div>
+      <div class="porque-titulo">Envío rápido</div>
+      <div class="porque-desc">Despachamos tu pedido lo antes posible para que no te quedes sin yerba ni un día más de lo necesario.</div>
+    </div>
+    <div class="porque-item">
+      <div class="porque-img-placeholder">💰</div>
+      <div class="porque-titulo">Precios amigables</div>
+      <div class="porque-desc">Creemos que una buena yerba no tiene que costar una fortuna. Precios accesibles para que puedas matear todos los días.</div>
+    </div>
+    <div class="porque-item">
+      <div class="porque-img-placeholder">🏔️</div>
+      <div class="porque-titulo">Amor por el mate</div>
+      <div class="porque-desc">No somos un negocio más. Somos una montañita y queremos compartir lo mejor con vos.</div>
+    </div>
+  </div>
+</div>
+
+<div class="como-comprar">
+  <h2>¿Cómo comprar?</h2>
+  <div class="pasos">
+    <div class="paso">
+      <div class="paso-num">1</div>
+      <div class="paso-img-placeholder">🔍</div>
+      <div class="paso-titulo">Elegí tu yerba</div>
+      <div class="paso-desc">Explorá nuestro catálogo y tocá el producto que más te guste</div>
+    </div>
+    <div class="paso">
+      <div class="paso-num">2</div>
+      <div class="paso-img-placeholder">🛒</div>
+      <div class="paso-titulo">Reservá tu pedido</div>
+      <div class="paso-desc">Tocá el botón "Comprar" para reservar tu yerba favorita</div>
+    </div>
+    <div class="paso">
+      <div class="paso-num">3</div>
+      <div class="paso-img-placeholder">💬</div>
+      <div class="paso-titulo">Te lleva al WhatsApp</div>
+      <div class="paso-desc">Se abre el WhatsApp con tu pedido armado automáticamente, listo para enviar</div>
+    </div>
+    <div class="paso">
+      <div class="paso-num">4</div>
+      <div class="paso-img-placeholder">📦</div>
+      <div class="paso-titulo">¡Recibís en casa!</div>
+      <div class="paso-desc">Coordinamos el envío y te llega con tu regalo incluido 🎁</div>
+    </div>
+  </div>
+</div>
+
+<h2 class="section-title">Nuestras Yerbas</h2>
+<div class="regalo-banner">🎁 ¡Con cada yerba que comprás, te mandamos un regalo incluido sin costo adicional!</div>
+<div class="products" id="productos"></div>
+
+<div class="montana-mate">
+  <h2>¿Cómo armar tu montañita?</h2>
+  <p class="subtitulo">El secreto para un mate perfecto, paso a paso...</p>
+  <div class="montana-pasos">
+    <div class="montana-paso">
+      <div class="montana-paso-num">1</div>
+      <div class="montana-paso-img-placeholder">🧉</div>
+      <div class="montana-paso-titulo">Cargá la yerba</div>
+      <div class="montana-paso-desc">Llenás el mate hasta 3/4 partes con yerba. No lo llenes del todo, necesitás espacio para el agua.</div>
+    </div>
+    <div class="montana-paso">
+      <div class="montana-paso-num">2</div>
+      <div class="montana-paso-img-placeholder">📐</div>
+      <div class="montana-paso-titulo">Inclinás y sacudís</div>
+      <div class="montana-paso-desc">Tapás la boca del mate con la palma, lo inclinás y lo sacudís suavemente para sacarle el polvo a la yerba.</div>
+    </div>
+    <div class="montana-paso">
+      <div class="montana-paso-num">3</div>
+      <div class="montana-paso-img-placeholder">💧</div>
+      <div class="montana-paso-titulo">Tirás agua en el vacío</div>
+      <div class="montana-paso-desc">Con el mate inclinado, tirás un chorrito de agua fría o tibia en el lado que quedó sin yerba.</div>
+    </div>
+    <div class="montana-paso">
+      <div class="montana-paso-num">4</div>
+      <div class="montana-paso-img-placeholder">⏳</div>
+      <div class="montana-paso-titulo">Esperás 5 minutos</div>
+      <div class="montana-paso-desc">Dejás reposar la yerba para que se hidrate bien. Repetís los pasos si querés una montañita más prolija.</div>
+    </div>
+    <div class="montana-paso">
+      <div class="montana-paso-num">5</div>
+      <div class="montana-paso-img-placeholder">🏔️</div>
+      <div class="montana-paso-titulo">Formás la montañita</div>
+      <div class="montana-paso-desc">En modo arquitecto, acomodás la yerba con la bombilla para que quede bien inclinada formando la montañita perfecta.</div>
+    </div>
+    <div class="montana-paso">
+      <div class="montana-paso-num">6</div>
+      <div class="montana-paso-img-placeholder">📸</div>
+      <div class="montana-paso-titulo">¡A disfrutar!</div>
+      <div class="montana-paso-desc">Cebás con agua a 70-80°C y disfrutás de un buen mate. No te olvidés de sacarle foto a tu montañita.</div>
+    </div>
+  </div>
+  <div class="montana-tip">
+    💡 <strong>Tip:</strong> El agua ideal está entre 70° y 80°C. Si hierve, esperá unos minutos antes de cebar para no quemar la yerba y preservar todo el sabor.
+  </div>
+</div>
+
+<div class="redes">
+  <h2>Seguinos en nuestras redes</h2>
+  <div class="redes-lista">
+    <a class="red-fila" href="https://www.instagram.com/unamontanita?igsh=azZva2psenIxZ2E5" target="_blank">
+      <img src="./instagram.jpg" alt="Instagram">
+      <div class="red-info">
+        <span class="red-usuario">@unamontanita</span>
+        <span class="red-accion">Seguinos en Instagram</span>
+      </div>
+      <span class="red-arrow">→</span>
+    </a>
+    <a class="red-fila" href="https://www.tiktok.com/@unamontaita1?_r=1&_t=ZS-95QTucqyIN7" target="_blank">
+      <img src="./tiktok.jpg" alt="TikTok">
+      <div class="red-info">
+        <span class="red-usuario">@uunamontaita1</span>
+        <span class="red-accion">Seguinos en TikTok</span>
+      </div>
+      <span class="red-arrow">→</span>
+    </a>
+    <a class="red-fila" href="https://wa.me/543772634185" target="_blank">
+      <img src="./whatsapp.jpg" alt="WhatsApp">
+      <div class="red-info">
+        <span class="red-usuario">3772 634185</span>
+        <span class="red-accion">Escribinos por WhatsApp</span>
+      </div>
+      <span class="red-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<footer>© 2025 Una Montañita — Todos los derechos reservados</footer>
+
+<div class="popup-overlay" id="popup-overlay" onclick="cerrarPopupOverlay(event)">
+  <div class="popup">
+    <img class="popup-img" id="popup-img" src="" alt="">
+    <div class="popup-body">
+      <div class="popup-name" id="popup-name"></div>
+      <div class="popup-desc" id="popup-desc"></div>
+      <div class="popup-regalo">🎁 ¡Esta yerba incluye un regalo sorpresa!</div>
+      <div class="popup-stock" id="popup-stock"></div>
+      <div class="popup-price" id="popup-price"></div>
+      <button class="popup-add-btn" id="popup-add-btn">🛒 Agregar al carrito</button>
+      <button class="popup-close-btn" onclick="cerrarPopup()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<div class="cart-overlay" id="cart-overlay" onclick="cerrarCartOverlay(event)">
+  <div class="cart-modal">
+    <h2>🛒 Tu carrito</h2>
+    <div id="cart-items"></div>
+    <div class="cart-total" id="cart-total"></div>
+    <button class="wpp-btn" onclick="comprarPorWpp()">💬 Comprar por WhatsApp</button>
+    <button class="close-btn" onclick="cerrarCarrito()">Cerrar</button>
+  </div>
+</div>
+
+<div class="gracias-overlay" id="gracias-overlay">
+  <div class="gracias-modal">
+    <div class="gracias-icon">🎉</div>
+    <h2>¡Gracias por tu pedido!</h2>
+    <p>Tu pedido fue enviado por WhatsApp. En breve nos ponemos en contacto para coordinar el envío con tu regalo incluido. ¡Gracias por elegirnos! 🌿🎁</p>
+    <button class="gracias-btn" onclick="cerrarGracias()">Volver a la tienda</button>
+  </div>
+</div>
+
+<script>
+const productos = [
+  { id: 1, nombre: "Canarias Tradicional", desc: "Yerba mate elaborada con hojas seleccionadas y estacionamiento adecuado. Sabor intenso y rendimiento alto.", precio: 0, img: "./canarias-tradicional.jpg", stock: 10 },
+  { id: 2, nombre: "Canarias Edición Especial", desc: "Hojas de montes nativos con manejo sustentable. Estacionamiento prolongado y molienda uniforme. Sabor moderado, parejo y levemente ahumado.", precio: 0, img: "./canarias-especial.jpg", stock: 4 },
+  { id: 3, nombre: "Canarias Serena", desc: "Mezcla suave con hierbas: toronjil, mburucuyá, menta y tilo. Mantiene el sabor del mate pero con menor intensidad.", precio: 0, img: "./canarias-serena.jpg", stock: 8 },
+  { id: 4, nombre: "Canarias Té Verde y Jengibre", desc: "Yerba con té verde (antioxidante) y jengibre (digestivo). No se recomienda su uso prolongado ni para niños.", precio: 0, img: "./canarias-teverde.jpg", stock: 4 },
+  { id: 5, nombre: "Canarias Té Rojo y Centellas", desc: "Yerba con té rojo (apoyo en pérdida de peso) y centella (piel y celulitis). No para embarazadas, lactancia ni uso prolongado.", precio: 0, img: "./canarias-terojo.jpg", stock: 5 },
+  { id: 6, nombre: "Baldo", desc: "Yerba 100% hoja, sin polvo ni palo. Molienda fina que mejora la infusión y es más amigable para el sistema digestivo.", precio: 0, img: "./baldo.jpg", stock: 7 },
+];
+
+let carrito = [];
+
+function getStockBadge(stock) {
+  if (stock === 0) return '<span class="stock-badge agotado">❌ Sin stock</span>';
+  if (stock <= 3) return `<span class="stock-badge">⚠️ Últimas ${stock} unidades!</span>`;
+  return '';
+}
+
+function renderProductos() {
+  const cont = document.getElementById("productos");
+  cont.innerHTML = productos.map(p => `
+    <div class="product-card" onclick="abrirPopup(${p.id})">
+      <div class="regalo-tag">🎁 Regalo incluido</div>
+      <div class="product-img-wrap">
+        <img src="${p.img}" alt="${p.nombre}">
+      </div>
+      <div class="product-info">
+        <div class="product-name">${p.nombre}</div>
+        <div class="product-price">${p.precio > 0 ? '$' + p.precio.toLocaleString() : 'Consultar precio'}</div>
+        ${getStockBadge(p.stock)}
+        <button class="ver-btn">Ver producto</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function abrirPopup(id) {
+  const p = productos.find(x => x.id === id);
+  document.getElementById("popup-img").src = p.img;
+  document.getElementById("popup-name").textContent = p.nombre;
+  document.getElementById("popup-desc").textContent = p.desc;
+  document.getElementById("popup-price").textContent = p.precio > 0 ? '$' + p.precio.toLocaleString() : 'Consultar precio';
+  document.getElementById("popup-stock").innerHTML = getStockBadge(p.stock);
+  const btn = document.getElementById("popup-add-btn");
+  if (p.stock === 0) {
+    btn.textContent = "Sin stock";
+    btn.disabled = true;
+  } else {
+    btn.textContent = "🛒 Agregar al carrito";
+    btn.disabled = false;
+    btn.style.background = "#2d6a2d";
+    btn.onclick = () => agregarDesdePopup(id);
+  }
+  document.getElementById("popup-overlay").classList.add("open");
+}
+
+function cerrarPopup() { document.getElementById("popup-overlay").classList.remove("open"); }
+function cerrarPopupOverlay(e) { if (e.target === document.getElementById("popup-overlay")) cerrarPopup(); }
+
+function agregarDesdePopup(id) {
+  const prod = productos.find(p => p.id === id);
+  const existe = carrito.find(p => p.id === id);
+  if (existe) { existe.cantidad++; } else { carrito.push({ ...prod, cantidad: 1 }); }
+  actualizarContador();
+  const btn = document.getElementById("popup-add-btn");
+  btn.textContent = "✓ Agregado!";
+  btn.style.background = "#4caf50";
+  setTimeout(() => { btn.textContent = "🛒 Agregar al carrito"; btn.style.background = "#2d6a2d"; }, 1200);
+}
+
+function actualizarContador() {
+  document.getElementById("cart-count").textContent = carrito.reduce((acc, p) => acc + p.cantidad, 0);
+}
+
+function abrirCarrito() { document.getElementById("cart-overlay").classList.add("open"); renderCarrito(); }
+function cerrarCarrito() { document.getElementById("cart-overlay").classList.remove("open"); }
+function cerrarCartOverlay(e) { if (e.target === document.getElementById("cart-overlay")) cerrarCarrito(); }
+
+function renderCarrito() {
+  const cont = document.getElementById("cart-items");
+  const totalEl = document.getElementById("cart-total");
+  if (carrito.length === 0) {
+    cont.innerHTML = '<div class="cart-empty">Tu carrito está vacío 🛒</div>';
+    totalEl.textContent = '';
+    return;
+  }
+  cont.innerHTML = carrito.map(p => `
+    <div class="cart-item">
+      <div class="cart-item-name">${p.nombre}</div>
+      <div class="cart-item-price">${p.precio > 0 ? '$' + (p.precio * p.cantidad).toLocaleString() : 'A consultar'}</div>
+      <div class="qty-controls">
+        <button class="qty-btn" onclick="cambiarCantidad(${p.id}, -1)">−</button>
+        <span>${p.cantidad}</span>
+        <button class="qty-btn" onclick="cambiarCantidad(${p.id}, 1)">+</button>
+      </div>
+    </div>
+  `).join('');
+  const total = carrito.reduce((acc, p) => acc + (p.precio * p.cantidad), 0);
+  totalEl.textContent = total > 0 ? 'Total: $' + total.toLocaleString() : '';
+}
+
+function cambiarCantidad(id, delta) {
+  const item = carrito.find(p => p.id === id);
+  if (!item) return;
+  item.cantidad += delta;
+  if (item.cantidad <= 0) carrito = carrito.filter(p => p.id !== id);
+  actualizarContador();
+  renderCarrito();
+}
+
+function comprarPorWpp() {
+  if (carrito.length === 0) { alert("Tu carrito está vacío."); return; }
+  let lineas = [];
+  lineas.push("¡Hola! ¿Cómo están? 😊 🙋🏽‍♂️");
+  lineas.push("");
+  lineas.push("Quisiera realizar el siguiente pedido:");
+  lineas.push("");
+  lineas.push("🛒 Pedido:");
+  carrito.forEach(p => { lineas.push("* " + p.nombre + " x" + p.cantidad); });
+  lineas.push("");
+  lineas.push("💰 ¿Podrían confirmarme el precio y disponibilidad?");
+  lineas.push("");
+  lineas.push("📍 En caso de tener envío, ¿me indican también el costo y tiempos?");
+  lineas.push("");
+  lineas.push("Muchas gracias. Quedo atento 🙌");
+  let msg = encodeURIComponent(lineas.join("\n"));
+  window.open("https://wa.me/543772634185?text=" + msg, "_blank");
+  cerrarCarrito();
+  carrito = [];
+  actualizarContador();
+  setTimeout(() => { document.getElementById("gracias-overlay").classList.add("open"); }, 500);
+}
+
+function cerrarGracias() { document.getElementById("gracias-overlay").classList.remove("open"); }
+
+renderProductos();
+</script>
+</body>
+</html>
