@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
 :root {
   --moss:    #2C3424;
   --cypress: #4C583E;
@@ -19,16 +19,16 @@
   --gold:    #C9A84C;
   --white:   #ffffff;
 }
- 
+
 html { scroll-behavior: smooth; }
- 
+
 body {
   font-family: 'Jost', sans-serif;
   color: var(--moss);
   background: var(--cream);
   overflow-x: hidden;
 }
- 
+
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -38,7 +38,7 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
- 
+
 header {
   background: var(--moss);
   color: white;
@@ -51,7 +51,7 @@ header {
   z-index: 100;
   box-shadow: 0 2px 16px rgba(0,0,0,0.3);
 }
- 
+
 .logo {
   font-family: 'Cormorant Garamond', serif;
   font-size: 20px;
@@ -61,14 +61,14 @@ header {
   align-items: center;
   gap: 10px;
 }
- 
+
 .logo img {
   height: 38px; width: 38px;
   object-fit: contain;
   border-radius: 50%;
   border: 2px solid rgba(255,255,255,0.4);
 }
- 
+
 .cart-btn {
   background: var(--aloe);
   color: var(--moss);
@@ -86,7 +86,7 @@ header {
   transition: 0.2s;
 }
 .cart-btn:hover { background: white; }
- 
+
 .cart-count {
   background: #c0392b;
   color: white;
@@ -95,7 +95,7 @@ header {
   display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700;
 }
- 
+
 .hero {
   background: linear-gradient(160deg, var(--moss) 0%, var(--cypress) 60%, var(--olive) 100%);
   color: white;
@@ -104,7 +104,7 @@ header {
   position: relative;
   overflow: hidden;
 }
- 
+
 .hero::after {
   content: '';
   position: absolute;
@@ -113,7 +113,7 @@ header {
   background: var(--cream);
   clip-path: ellipse(55% 100% at 50% 100%);
 }
- 
+
 .hero-logo {
   width: 96px; height: 96px;
   object-fit: contain;
@@ -124,7 +124,7 @@ header {
   padding: 6px;
   animation: fadeDown 0.8s ease both;
 }
- 
+
 .hero h1 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 38px;
@@ -133,7 +133,7 @@ header {
   letter-spacing: 1px;
   animation: fadeDown 0.9s ease both;
 }
- 
+
 .hero p {
   opacity: 0.85;
   margin-bottom: 22px;
@@ -142,7 +142,7 @@ header {
   font-size: 18px;
   animation: fadeDown 1s ease both;
 }
- 
+
 .hero-badge {
   display: inline-block;
   background: rgba(255,255,255,0.15);
@@ -154,7 +154,7 @@ header {
   letter-spacing: 1px;
   animation: fadeDown 1.1s ease both;
 }
- 
+
 .stats-strip {
   background: var(--cypress);
   color: white;
@@ -164,7 +164,7 @@ header {
   padding: 0;
   overflow: hidden;
 }
- 
+
 .stat-item {
   flex: 1;
   text-align: center;
@@ -174,7 +174,7 @@ header {
 }
 .stat-item:last-child { border-right: none; }
 .stat-item:hover { background: rgba(255,255,255,0.08); }
- 
+
 .stat-num {
   font-family: 'Cormorant Garamond', serif;
   font-size: 26px;
@@ -184,7 +184,7 @@ header {
   line-height: 1;
   margin-bottom: 4px;
 }
- 
+
 .stat-label {
   font-size: 11px;
   opacity: 0.8;
@@ -192,7 +192,7 @@ header {
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
- 
+
 .banner-animado {
   background: var(--moss);
   padding: 13px 0;
@@ -200,13 +200,13 @@ header {
   white-space: nowrap;
   border-top: 1px solid rgba(255,255,255,0.08);
 }
- 
+
 .banner-track {
   display: inline-flex;
   gap: 36px;
   animation: scrollBanner 24s linear infinite;
 }
- 
+
 .banner-item {
   display: inline-flex;
   align-items: center;
@@ -217,19 +217,19 @@ header {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
- 
+
 .banner-dot {
   width: 4px; height: 4px;
   border-radius: 50%;
   background: var(--gold);
   display: inline-block;
 }
- 
+
 @keyframes scrollBanner {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
- 
+
 .divisor {
   display: flex;
   align-items: center;
@@ -238,25 +238,25 @@ header {
   padding: 10px 0 0;
   color: var(--cedar);
 }
- 
+
 .divisor-linea {
   flex: 1;
   max-width: 80px;
   height: 1px;
   background: linear-gradient(to right, transparent, var(--cedar));
 }
- 
+
 .divisor-linea.right {
   background: linear-gradient(to left, transparent, var(--cedar));
 }
- 
+
 .divisor-icon { font-size: 18px; }
- 
+
 .section-header {
   text-align: center;
   padding: 42px 20px 10px;
 }
- 
+
 .section-header h2 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 32px;
@@ -265,14 +265,14 @@ header {
   margin-bottom: 6px;
   letter-spacing: 0.5px;
 }
- 
+
 .section-header p {
   font-size: 14px;
   color: var(--olive);
   font-weight: 500;
   letter-spacing: 0.3px;
 }
- 
+
 .regalo-banner {
   text-align: center;
   background: #fdf6e3;
@@ -286,7 +286,7 @@ header {
   font-weight: 600;
   letter-spacing: 0.2px;
 }
- 
+
 .products {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -295,7 +295,7 @@ header {
   max-width: 1100px;
   margin: 0 auto;
 }
- 
+
 .product-card {
   background: white;
   border-radius: 14px;
@@ -306,12 +306,12 @@ header {
   position: relative;
   border: 1px solid rgba(44,52,36,0.07);
 }
- 
+
 .product-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 14px 32px rgba(44,52,36,0.15);
 }
- 
+
 .regalo-tag {
   position: absolute;
   top: 8px; left: 8px;
@@ -325,25 +325,25 @@ header {
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
- 
+
 .product-img-wrap {
   width: 100%; height: 158px;
   overflow: hidden;
   background: var(--aloe);
   display: flex; align-items: center; justify-content: center;
 }
- 
+
 .product-img-wrap img {
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: center;
   transition: transform 0.35s;
 }
- 
+
 .product-card:hover .product-img-wrap img { transform: scale(1.07); }
- 
+
 .product-info { padding: 11px 13px 13px; }
- 
+
 .product-name {
   font-size: 13px;
   font-weight: 600;
@@ -352,7 +352,7 @@ header {
   line-height: 1.3;
   letter-spacing: 0.2px;
 }
- 
+
 .product-price {
   font-family: 'Cormorant Garamond', serif;
   font-size: 20px;
@@ -360,7 +360,7 @@ header {
   color: var(--cypress);
   margin-bottom: 6px;
 }
- 
+
 .stock-badge {
   display: inline-block;
   background: #fef9e7;
@@ -372,9 +372,9 @@ header {
   margin-bottom: 8px;
   letter-spacing: 0.3px;
 }
- 
+
 .stock-badge.agotado { background: #fdecea; color: #922b21; }
- 
+
 .ver-btn {
   width: 100%;
   background: transparent;
@@ -390,28 +390,28 @@ header {
   text-transform: uppercase;
   transition: 0.2s;
 }
- 
+
 .ver-btn:hover { background: var(--cypress); color: white; }
- 
+
 .como-comprar {
   padding: 50px 16px;
   text-align: center;
   background: var(--aloe);
 }
- 
+
 .como-comprar h2 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 30px;
   color: var(--moss);
   margin-bottom: 6px;
 }
- 
+
 .como-comprar .subtitulo {
   font-size: 14px;
   color: var(--cypress);
   margin-bottom: 28px;
 }
- 
+
 .pasos {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -419,7 +419,7 @@ header {
   max-width: 680px;
   margin: 0 auto;
 }
- 
+
 .paso {
   background: white;
   border-radius: 14px;
@@ -427,7 +427,7 @@ header {
   box-shadow: 0 2px 10px rgba(44,52,36,0.07);
   border: 1px solid rgba(44,52,36,0.06);
 }
- 
+
 .paso-num {
   background: var(--cypress);
   color: white;
@@ -438,27 +438,27 @@ header {
   font-size: 13px;
   margin: 0 auto 10px;
 }
- 
+
 .paso-icon { font-size: 26px; margin-bottom: 8px; }
 .paso-titulo { font-size: 14px; font-weight: 700; color: var(--moss); margin-bottom: 4px; }
 .paso-desc { font-size: 12px; color: var(--olive); line-height: 1.5; }
- 
+
 .porque {
   background: var(--moss);
   color: white;
   padding: 50px 16px;
   text-align: center;
 }
- 
+
 .porque h2 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 30px;
   margin-bottom: 6px;
   letter-spacing: 0.5px;
 }
- 
+
 .porque .subtitulo { font-size: 14px; opacity: 0.7; margin-bottom: 28px; }
- 
+
 .porque-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -466,7 +466,7 @@ header {
   max-width: 680px;
   margin: 0 auto;
 }
- 
+
 .porque-item {
   background: rgba(218,222,216,0.1);
   border: 1px solid rgba(218,222,216,0.15);
@@ -474,31 +474,31 @@ header {
   padding: 20px 14px;
   transition: 0.25s;
 }
- 
+
 .porque-item:hover {
   background: rgba(218,222,216,0.18);
   transform: translateY(-3px);
 }
- 
+
 .porque-icon { font-size: 26px; margin-bottom: 8px; }
 .porque-titulo { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
 .porque-desc { font-size: 12px; opacity: 0.8; line-height: 1.5; }
- 
+
 .montana-mate {
   background: var(--cypress);
   color: white;
   padding: 50px 16px;
   text-align: center;
 }
- 
+
 .montana-mate h2 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 28px;
   margin-bottom: 6px;
 }
- 
+
 .montana-mate .subtitulo { font-size: 14px; opacity: 0.75; margin-bottom: 26px; }
- 
+
 .montana-pasos {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -506,7 +506,7 @@ header {
   max-width: 680px;
   margin: 0 auto;
 }
- 
+
 .montana-paso {
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.12);
@@ -514,9 +514,9 @@ header {
   padding: 16px 12px;
   transition: 0.2s;
 }
- 
+
 .montana-paso:hover { background: rgba(255,255,255,0.16); }
- 
+
 .montana-paso-num {
   background: var(--aloe);
   color: var(--moss);
@@ -527,11 +527,11 @@ header {
   font-size: 12px;
   margin: 0 auto 8px;
 }
- 
+
 .montana-paso-icon { font-size: 24px; margin-bottom: 6px; }
 .montana-paso-titulo { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
 .montana-paso-desc { font-size: 11px; opacity: 0.85; line-height: 1.5; }
- 
+
 .montana-tip {
   margin: 22px auto 0;
   background: rgba(255,255,255,0.1);
@@ -543,21 +543,21 @@ header {
   line-height: 1.6;
   text-align: left;
 }
- 
+
 .redes {
   background: var(--moss);
   color: white;
   text-align: center;
   padding: 46px 16px;
 }
- 
+
 .redes h2 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 26px;
   margin-bottom: 22px;
   letter-spacing: 0.5px;
 }
- 
+
 .redes-lista {
   display: flex;
   flex-direction: column;
@@ -565,7 +565,7 @@ header {
   max-width: 400px;
   margin: 0 auto;
 }
- 
+
 .red-fila {
   display: flex;
   align-items: center;
@@ -578,21 +578,21 @@ header {
   color: white;
   transition: 0.22s;
 }
- 
+
 .red-fila:hover { background: rgba(218,222,216,0.18); transform: translateX(3px); }
- 
+
 .red-fila img {
   width: 42px; height: 42px;
   border-radius: 10px;
   object-fit: cover;
   flex-shrink: 0;
 }
- 
+
 .red-info { display: flex; flex-direction: column; text-align: left; flex: 1; }
 .red-usuario { font-size: 15px; font-weight: 700; }
 .red-accion { font-size: 12px; opacity: 0.7; margin-top: 1px; }
 .red-arrow { font-size: 16px; opacity: 0.5; }
- 
+
 footer {
   background: #1a2016;
   color: var(--cedar);
@@ -601,9 +601,10 @@ footer {
   font-size: 12px;
   letter-spacing: 0.3px;
 }
- 
+
 footer span { color: var(--aloe); }
- 
+
+/* ── BOTONES FLOTANTES ── */
 .floating-btns {
   position: fixed;
   bottom: 22px;
@@ -612,8 +613,9 @@ footer span { color: var(--aloe); }
   flex-direction: column;
   gap: 10px;
   z-index: 150;
+  align-items: flex-end;
 }
- 
+
 .float-btn {
   width: 50px; height: 50px;
   border-radius: 50%;
@@ -625,12 +627,34 @@ footer span { color: var(--aloe); }
   cursor: pointer;
   position: relative;
 }
- 
+
 .float-btn:hover { transform: scale(1.12); box-shadow: 0 6px 22px rgba(0,0,0,0.35); }
- 
+
 .float-wpp { background: #25d366; }
 .float-ig  { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
- 
+
+/* BOTÓN CLUB FLOTANTE */
+.float-club-btn {
+  background: var(--gold);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 16px rgba(201,168,76,0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+
+.float-club-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 22px rgba(201,168,76,0.55);
+}
+
 .float-label {
   position: absolute;
   right: 58px;
@@ -647,9 +671,10 @@ footer span { color: var(--aloe); }
   font-family: 'Jost', sans-serif;
   letter-spacing: 0.5px;
 }
- 
+
 .float-btn:hover .float-label { opacity: 1; }
- 
+
+/* ── POPUP PRODUCTOS ── */
 .popup-overlay {
   display: none;
   position: fixed;
@@ -661,9 +686,9 @@ footer span { color: var(--aloe); }
   padding: 16px;
   backdrop-filter: blur(4px);
 }
- 
+
 .popup-overlay.open { display: flex; }
- 
+
 .popup {
   background: white;
   border-radius: 18px;
@@ -673,20 +698,20 @@ footer span { color: var(--aloe); }
   overflow-y: auto;
   animation: popIn 0.25s ease;
 }
- 
+
 @keyframes popIn {
   from { opacity: 0; transform: scale(0.93); }
   to   { opacity: 1; transform: scale(1); }
 }
- 
+
 .popup-img {
   width: 100%; height: 230px;
   object-fit: cover;
   border-radius: 18px 18px 0 0;
 }
- 
+
 .popup-body { padding: 18px; }
- 
+
 .popup-name {
   font-family: 'Cormorant Garamond', serif;
   font-size: 22px;
@@ -694,9 +719,9 @@ footer span { color: var(--aloe); }
   color: var(--moss);
   margin-bottom: 6px;
 }
- 
+
 .popup-desc { font-size: 14px; color: #666; margin-bottom: 12px; line-height: 1.6; }
- 
+
 .popup-regalo {
   background: #fdf6e3;
   border-left: 3px solid var(--gold);
@@ -707,7 +732,7 @@ footer span { color: var(--aloe); }
   font-weight: 600;
   margin-bottom: 12px;
 }
- 
+
 .popup-price {
   font-family: 'Cormorant Garamond', serif;
   font-size: 28px;
@@ -715,7 +740,7 @@ footer span { color: var(--aloe); }
   color: var(--cypress);
   margin-bottom: 14px;
 }
- 
+
 .popup-add-btn {
   width: 100%;
   background: var(--cypress);
@@ -731,10 +756,10 @@ footer span { color: var(--aloe); }
   margin-bottom: 8px;
   transition: 0.2s;
 }
- 
+
 .popup-add-btn:hover { background: var(--moss); }
 .popup-add-btn:disabled { background: #bbb; cursor: not-allowed; }
- 
+
 .popup-close-btn {
   width: 100%;
   background: var(--aloe);
@@ -748,7 +773,169 @@ footer span { color: var(--aloe); }
   font-family: 'Jost', sans-serif;
   letter-spacing: 0.3px;
 }
- 
+
+/* ── POPUP CLUB ── */
+.club-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20,28,16,0.75);
+  z-index: 350;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  backdrop-filter: blur(4px);
+}
+
+.club-overlay.open { display: flex; }
+
+.club-modal {
+  background: white;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 390px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: popIn 0.25s ease;
+}
+
+.club-header {
+  background: var(--moss);
+  border-radius: 20px 20px 0 0;
+  padding: 24px 20px 20px;
+  text-align: center;
+  color: white;
+}
+
+.club-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.club-header p {
+  font-size: 13px;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+.club-badge {
+  display: inline-block;
+  background: var(--gold);
+  color: white;
+  border-radius: 20px;
+  padding: 5px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 12px;
+  letter-spacing: 0.5px;
+}
+
+.club-body { padding: 20px; }
+
+.club-steps {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.club-step {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.club-step.done { background: var(--cypress); color: white; }
+.club-step.active { background: var(--gold); color: white; }
+.club-step.pending { background: var(--aloe); color: var(--cedar); }
+.club-line { flex: 1; height: 1px; background: var(--aloe); }
+
+.club-step-labels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.club-step-lbl {
+  font-size: 10px;
+  color: var(--cedar);
+  font-weight: 500;
+}
+
+.club-step-lbl.done { color: var(--cypress); font-weight: 700; }
+.club-step-lbl.active { color: var(--gold); font-weight: 700; }
+
+.club-label {
+  font-size: 12px;
+  color: var(--olive);
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.club-input {
+  width: 100%;
+  border: 1.5px solid var(--aloe);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--moss);
+  background: var(--cream);
+  margin-bottom: 12px;
+  font-family: 'Jost', sans-serif;
+  transition: border 0.2s;
+}
+
+.club-input:focus {
+  outline: none;
+  border-color: var(--cypress);
+}
+
+.club-wpp-btn {
+  width: 100%;
+  background: #25d366;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  letter-spacing: 0.3px;
+  transition: 0.2s;
+  margin-bottom: 8px;
+}
+
+.club-wpp-btn:hover { background: #1ebe57; }
+
+.club-close-btn {
+  width: 100%;
+  background: var(--aloe);
+  color: var(--moss);
+  border: none;
+  border-radius: 10px;
+  padding: 11px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+}
+
+.club-nota {
+  font-size: 11px;
+  color: var(--cedar);
+  text-align: center;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* ── CARRITO ── */
 .cart-overlay {
   display: none;
   position: fixed;
@@ -760,9 +947,9 @@ footer span { color: var(--aloe); }
   padding: 16px;
   backdrop-filter: blur(3px);
 }
- 
+
 .cart-overlay.open { display: flex; }
- 
+
 .cart-modal {
   background: white;
   border-radius: 18px;
@@ -772,14 +959,14 @@ footer span { color: var(--aloe); }
   max-height: 85vh;
   overflow-y: auto;
 }
- 
+
 .cart-modal h2 {
   color: var(--moss);
   margin-bottom: 16px;
   font-family: 'Cormorant Garamond', serif;
   font-size: 24px;
 }
- 
+
 .cart-item {
   display: flex;
   justify-content: space-between;
@@ -789,11 +976,11 @@ footer span { color: var(--aloe); }
   font-size: 13px;
   gap: 8px;
 }
- 
+
 .cart-item-name { flex: 1; color: var(--moss); font-weight: 600; }
 .cart-item-price { color: var(--cypress); font-weight: 700; font-family: 'Cormorant Garamond', serif; font-size: 17px; }
 .qty-controls { display: flex; align-items: center; gap: 6px; }
- 
+
 .qty-btn {
   background: var(--aloe);
   border: none;
@@ -804,7 +991,7 @@ footer span { color: var(--aloe); }
   color: var(--moss);
   font-weight: 700;
 }
- 
+
 .cart-total {
   text-align: right;
   font-family: 'Cormorant Garamond', serif;
@@ -813,9 +1000,9 @@ footer span { color: var(--aloe); }
   color: var(--cypress);
   margin-top: 14px;
 }
- 
+
 .cart-empty { text-align: center; color: var(--cedar); padding: 24px; font-size: 15px; }
- 
+
 .wpp-btn {
   display: block; width: 100%;
   background: #25d366;
@@ -831,9 +1018,9 @@ footer span { color: var(--aloe); }
   letter-spacing: 0.3px;
   transition: 0.2s;
 }
- 
+
 .wpp-btn:hover { background: #1ebe57; }
- 
+
 .close-btn {
   display: block; width: 100%;
   background: var(--aloe);
@@ -847,7 +1034,8 @@ footer span { color: var(--aloe); }
   margin-top: 8px;
   font-family: 'Jost', sans-serif;
 }
- 
+
+/* ── GRACIAS ── */
 .gracias-overlay {
   display: none;
   position: fixed;
@@ -859,9 +1047,9 @@ footer span { color: var(--aloe); }
   padding: 16px;
   backdrop-filter: blur(4px);
 }
- 
+
 .gracias-overlay.open { display: flex; }
- 
+
 .gracias-modal {
   background: white;
   border-radius: 18px;
@@ -871,18 +1059,18 @@ footer span { color: var(--aloe); }
   text-align: center;
   animation: popIn 0.3s ease;
 }
- 
+
 .gracias-icon { font-size: 56px; margin-bottom: 14px; }
- 
+
 .gracias-modal h2 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 26px;
   color: var(--moss);
   margin-bottom: 10px;
 }
- 
+
 .gracias-modal p { font-size: 14px; color: #666; margin-bottom: 22px; line-height: 1.6; }
- 
+
 .gracias-btn {
   background: var(--cypress);
   color: white;
@@ -896,14 +1084,14 @@ footer span { color: var(--aloe); }
   letter-spacing: 0.5px;
   transition: 0.2s;
 }
- 
+
 .gracias-btn:hover { background: var(--moss); }
- 
+
 @keyframes fadeDown {
   from { opacity: 0; transform: translateY(-16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
- 
+
 @media (min-width: 600px) {
   .products { grid-template-columns: repeat(3, 1fr); padding: 0 20px 48px; gap: 16px; }
   .product-img-wrap { height: 200px; }
@@ -915,7 +1103,7 @@ footer span { color: var(--aloe); }
 </style>
 </head>
 <body>
- 
+
 <header>
   <div class="logo">
     <img src="./logo.png" alt="Logo" onerror="this.style.display='none'">
@@ -926,14 +1114,14 @@ footer span { color: var(--aloe); }
     <div class="cart-count" id="cart-count">0</div>
   </button>
 </header>
- 
+
 <div class="hero">
   <img class="hero-logo" src="./logo.png" alt="Logo" onerror="this.style.display='none'">
   <h1>Una Montañita</h1>
   <p>"El sabor que nace de la montaña"</p>
   <div class="hero-badge">🚩 Envíos disponibles · Regalo incluido 🎁</div>
 </div>
- 
+
 <div class="stats-strip reveal">
   <div class="stat-item">
     <span class="stat-num">+150</span>
@@ -952,7 +1140,7 @@ footer span { color: var(--aloe); }
     <span class="stat-label">Regalo siempre</span>
   </div>
 </div>
- 
+
 <div class="banner-animado">
   <div class="banner-track">
     <div class="banner-item"><span class="banner-dot"></span> Yerba Natural</div>
@@ -973,7 +1161,7 @@ footer span { color: var(--aloe); }
     <div class="banner-item"><span class="banner-dot"></span> Compartí el Mate</div>
   </div>
 </div>
- 
+
 <div class="section-header reveal">
   <h2>Nuestras Yerbas</h2>
   <p>Seleccionadas con cuidado · Entregadas con un regalo 🎁</p>
@@ -985,7 +1173,7 @@ footer span { color: var(--aloe); }
 </div>
 <div class="regalo-banner reveal">🎁 Con cada yerba que comprás, te mandamos un regalo incluido sin costo adicional</div>
 <div class="products" id="productos"></div>
- 
+
 <div class="como-comprar reveal">
   <h2>¿Cómo comprar?</h2>
   <p class="subtitulo">Simple, rápido y directo</p>
@@ -1016,7 +1204,7 @@ footer span { color: var(--aloe); }
     </div>
   </div>
 </div>
- 
+
 <div class="porque reveal">
   <h2>¿Por qué elegirnos?</h2>
   <p class="subtitulo">Más que una tienda, somos una comunidad matera</p>
@@ -1058,7 +1246,7 @@ footer span { color: var(--aloe); }
     </div>
   </div>
 </div>
- 
+
 <div class="montana-mate reveal">
   <h2>¿Cómo armar tu montañita?</h2>
   <p class="subtitulo">El secreto para un mate perfecto, paso a paso</p>
@@ -1104,7 +1292,7 @@ footer span { color: var(--aloe); }
     💡 <strong>Tip:</strong> El agua ideal está entre 70° y 80°C. Si hierve, esperá unos minutos antes de cebar para preservar todo el sabor.
   </div>
 </div>
- 
+
 <div class="redes reveal">
   <h2>Seguinos en nuestras redes</h2>
   <div class="divisor" style="margin-bottom:22px;">
@@ -1139,12 +1327,14 @@ footer span { color: var(--aloe); }
     </a>
   </div>
 </div>
- 
+
 <footer>
   © 2025 <span>Una Montañita</span> — Todos los derechos reservados 🌿
 </footer>
- 
+
+<!-- BOTONES FLOTANTES -->
 <div class="floating-btns">
+  <button class="float-club-btn" onclick="abrirClub()">⭐ 3ra compra = 5% off</button>
   <a class="float-btn float-ig" href="https://www.instagram.com/unamontanita" target="_blank">
     <span class="float-label">Instagram</span>
     <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -1154,7 +1344,8 @@ footer span { color: var(--aloe); }
     <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 </div>
- 
+
+<!-- POPUP PRODUCTOS -->
 <div class="popup-overlay" id="popup-overlay" onclick="cerrarPopupOverlay(event)">
   <div class="popup">
     <img class="popup-img" id="popup-img" src="" alt="">
@@ -1169,7 +1360,46 @@ footer span { color: var(--aloe); }
     </div>
   </div>
 </div>
- 
+
+<!-- POPUP CLUB -->
+<div class="club-overlay" id="club-overlay" onclick="cerrarClubOverlay(event)">
+  <div class="club-modal">
+    <div class="club-header">
+      <h2>Club Una Montañita ⭐</h2>
+      <p>Registrate una sola vez y acumulás compras. A la 3ra te hacemos un descuento especial.</p>
+      <div class="club-badge">3ra compra = 5% de descuento</div>
+    </div>
+    <div class="club-body">
+      <div class="club-steps">
+        <div class="club-step done">1</div>
+        <div class="club-line"></div>
+        <div class="club-step done">2</div>
+        <div class="club-line"></div>
+        <div class="club-step active">3</div>
+      </div>
+      <div class="club-step-labels">
+        <span class="club-step-lbl done">Compra 1 ✓</span>
+        <span class="club-step-lbl done">Compra 2 ✓</span>
+        <span class="club-step-lbl active">¡Descuento!</span>
+      </div>
+
+      <label class="club-label">Tu nombre</label>
+      <input class="club-input" id="club-nombre" type="text" placeholder="Ej: Lucas García">
+
+      <label class="club-label">Tu WhatsApp</label>
+      <input class="club-input" id="club-wpp" type="tel" placeholder="Ej: 3772 123456">
+
+      <label class="club-label">Tu ciudad</label>
+      <input class="club-input" id="club-ciudad" type="text" placeholder="Ej: Posadas">
+
+      <button class="club-wpp-btn" onclick="registrarClub()">💬 Registrarme por WhatsApp</button>
+      <button class="club-close-btn" onclick="cerrarClub()">Cerrar</button>
+      <p class="club-nota">Te vamos a llevar el conteo de tus compras. Cuando llegues a la 3ra, te mandamos el código MATE5 por WhatsApp 🎉</p>
+    </div>
+  </div>
+</div>
+
+<!-- CARRITO -->
 <div class="cart-overlay" id="cart-overlay" onclick="cerrarCartOverlay(event)">
   <div class="cart-modal">
     <h2>🛒 Tu carrito</h2>
@@ -1179,7 +1409,7 @@ footer span { color: var(--aloe); }
     <button class="close-btn" onclick="cerrarCarrito()">Cerrar</button>
   </div>
 </div>
- 
+
 <div class="gracias-overlay" id="gracias-overlay">
   <div class="gracias-modal">
     <div class="gracias-icon">🎉</div>
@@ -1188,7 +1418,7 @@ footer span { color: var(--aloe); }
     <button class="gracias-btn" onclick="cerrarGracias()">Volver a la tienda</button>
   </div>
 </div>
- 
+
 <script>
 const productos = [
   { id: 1, nombre: "Canarias Tradicional", desc: "Yerba mate elaborada con hojas seleccionadas y estacionamiento adecuado. Sabor intenso y rendimiento alto.", precio: 9800, img: "./canarias-tradicional.jpg", stock: 10 },
@@ -1201,15 +1431,15 @@ const productos = [
   { id: 8, nombre: "Rei Verde Tradicional", desc: "Yerba mate uruguaya de padrón exportación. Sabor tradicional, suave y equilibrado. Ideal para el mate del día a día.", precio: 8800, img: "./rei-verde-tradicional.jpg", stock: 0 },
   { id: 9, nombre: "Rei Verde Premium", desc: "Línea premium de Rei Verde con selección especial de hojas. Mayor suavidad y aroma. Una experiencia de mate de nivel superior.", precio: 9200, img: "./rei-verde-premium.jpg", stock: 0 },
 ];
- 
+
 let carrito = [];
- 
+
 function getStockBadge(stock) {
   if (stock === 0) return '<span class="stock-badge agotado">Sin stock</span>';
   if (stock <= 3) return `<span class="stock-badge">⚠ Últimas ${stock} unidades</span>`;
   return '';
 }
- 
+
 function renderProductos() {
   const cont = document.getElementById("productos");
   cont.innerHTML = productos.map((p, i) => `
@@ -1228,7 +1458,7 @@ function renderProductos() {
   `).join('');
   observeAll();
 }
- 
+
 function abrirPopup(id) {
   const p = productos.find(x => x.id === id);
   document.getElementById("popup-img").src = p.img;
@@ -1248,10 +1478,10 @@ function abrirPopup(id) {
   }
   document.getElementById("popup-overlay").classList.add("open");
 }
- 
+
 function cerrarPopup() { document.getElementById("popup-overlay").classList.remove("open"); }
 function cerrarPopupOverlay(e) { if (e.target === document.getElementById("popup-overlay")) cerrarPopup(); }
- 
+
 function agregarDesdePopup(id) {
   const prod = productos.find(p => p.id === id);
   const existe = carrito.find(p => p.id === id);
@@ -1262,15 +1492,15 @@ function agregarDesdePopup(id) {
   btn.style.background = "#4caf50";
   setTimeout(() => { btn.textContent = "🛒 Agregar al carrito"; btn.style.background = ""; }, 1300);
 }
- 
+
 function actualizarContador() {
   document.getElementById("cart-count").textContent = carrito.reduce((acc, p) => acc + p.cantidad, 0);
 }
- 
+
 function abrirCarrito() { document.getElementById("cart-overlay").classList.add("open"); renderCarrito(); }
 function cerrarCarrito() { document.getElementById("cart-overlay").classList.remove("open"); }
 function cerrarCartOverlay(e) { if (e.target === document.getElementById("cart-overlay")) cerrarCarrito(); }
- 
+
 function renderCarrito() {
   const cont = document.getElementById("cart-items");
   const totalEl = document.getElementById("cart-total");
@@ -1293,7 +1523,7 @@ function renderCarrito() {
   const total = carrito.reduce((acc, p) => acc + (p.precio * p.cantidad), 0);
   totalEl.textContent = 'Total: $' + total.toLocaleString();
 }
- 
+
 function cambiarCantidad(id, delta) {
   const item = carrito.find(p => p.id === id);
   if (!item) return;
@@ -1302,7 +1532,7 @@ function cambiarCantidad(id, delta) {
   actualizarContador();
   renderCarrito();
 }
- 
+
 function comprarPorWpp() {
   if (carrito.length === 0) { alert("Tu carrito está vacío."); return; }
   let lineas = [];
@@ -1324,9 +1554,33 @@ function comprarPorWpp() {
   actualizarContador();
   setTimeout(() => { document.getElementById("gracias-overlay").classList.add("open"); }, 500);
 }
- 
+
 function cerrarGracias() { document.getElementById("gracias-overlay").classList.remove("open"); }
- 
+
+// CLUB
+function abrirClub() { document.getElementById("club-overlay").classList.add("open"); }
+function cerrarClub() { document.getElementById("club-overlay").classList.remove("open"); }
+function cerrarClubOverlay(e) { if (e.target === document.getElementById("club-overlay")) cerrarClub(); }
+
+function registrarClub() {
+  const nombre = document.getElementById("club-nombre").value.trim();
+  const wpp = document.getElementById("club-wpp").value.trim();
+  const ciudad = document.getElementById("club-ciudad").value.trim();
+  if (!nombre || !wpp) { alert("Por favor completá tu nombre y WhatsApp."); return; }
+  let lineas = [];
+  lineas.push("¡Hola! Me quiero registrar en el Club Una Montañita ⭐");
+  lineas.push("");
+  lineas.push("Mis datos:");
+  lineas.push("• Nombre: " + nombre);
+  lineas.push("• WhatsApp: " + wpp);
+  if (ciudad) lineas.push("• Ciudad: " + ciudad);
+  lineas.push("");
+  lineas.push("¡Quiero empezar a acumular mis compras para el descuento del 5%! 🎉");
+  let msg = encodeURIComponent(lineas.join("\n"));
+  window.open("https://wa.me/543772634185?text=" + msg, "_blank");
+  cerrarClub();
+}
+
 function observeAll() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -1338,10 +1592,9 @@ function observeAll() {
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
- 
+
 renderProductos();
 observeAll();
 </script>
 </body>
 </html>
-  
