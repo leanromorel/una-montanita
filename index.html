@@ -29,7 +29,6 @@ body {
   overflow-x: hidden;
 }
  
-/* ── SCROLL REVEAL ── */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -40,7 +39,6 @@ body {
   transform: translateY(0);
 }
  
-/* ── HEADER ── */
 header {
   background: var(--moss);
   color: white;
@@ -98,7 +96,6 @@ header {
   font-size: 11px; font-weight: 700;
 }
  
-/* ── HERO ── */
 .hero {
   background: linear-gradient(160deg, var(--moss) 0%, var(--cypress) 60%, var(--olive) 100%);
   color: white;
@@ -138,7 +135,6 @@ header {
 }
  
 .hero p {
-  font-size: 15px;
   opacity: 0.85;
   margin-bottom: 22px;
   font-style: italic;
@@ -159,7 +155,6 @@ header {
   animation: fadeDown 1.1s ease both;
 }
  
-/* ── STATS STRIP ── */
 .stats-strip {
   background: var(--cypress);
   color: white;
@@ -198,7 +193,6 @@ header {
   text-transform: uppercase;
 }
  
-/* ── BANNER ANIMADO ── */
 .banner-animado {
   background: var(--moss);
   padding: 13px 0;
@@ -236,7 +230,6 @@ header {
   100% { transform: translateX(-50%); }
 }
  
-/* ── DIVISOR DECORATIVO ── */
 .divisor {
   display: flex;
   align-items: center;
@@ -259,7 +252,6 @@ header {
  
 .divisor-icon { font-size: 18px; }
  
-/* ── SECCIÓN PRODUCTOS ── */
 .section-header {
   text-align: center;
   padding: 42px 20px 10px;
@@ -295,7 +287,6 @@ header {
   letter-spacing: 0.2px;
 }
  
-/* ── GRID PRODUCTOS ── */
 .products {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -402,7 +393,6 @@ header {
  
 .ver-btn:hover { background: var(--cypress); color: white; }
  
-/* ── CÓMO COMPRAR ── */
 .como-comprar {
   padding: 50px 16px;
   text-align: center;
@@ -453,7 +443,6 @@ header {
 .paso-titulo { font-size: 14px; font-weight: 700; color: var(--moss); margin-bottom: 4px; }
 .paso-desc { font-size: 12px; color: var(--olive); line-height: 1.5; }
  
-/* ── POR QUÉ ELEGIRNOS ── */
 .porque {
   background: var(--moss);
   color: white;
@@ -495,7 +484,6 @@ header {
 .porque-titulo { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
 .porque-desc { font-size: 12px; opacity: 0.8; line-height: 1.5; }
  
-/* ── CÓMO ARMAR TU MATE ── */
 .montana-mate {
   background: var(--cypress);
   color: white;
@@ -556,7 +544,6 @@ header {
   text-align: left;
 }
  
-/* ── REDES ── */
 .redes {
   background: var(--moss);
   color: white;
@@ -601,20 +588,11 @@ header {
   flex-shrink: 0;
 }
  
-.red-fila-icon {
-  width: 42px; height: 42px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px;
-  flex-shrink: 0;
-}
- 
 .red-info { display: flex; flex-direction: column; text-align: left; flex: 1; }
 .red-usuario { font-size: 15px; font-weight: 700; }
 .red-accion { font-size: 12px; opacity: 0.7; margin-top: 1px; }
 .red-arrow { font-size: 16px; opacity: 0.5; }
  
-/* ── FOOTER ── */
 footer {
   background: #1a2016;
   color: var(--cedar);
@@ -626,7 +604,6 @@ footer {
  
 footer span { color: var(--aloe); }
  
-/* ── BOTONES FLOTANTES ── */
 .floating-btns {
   position: fixed;
   bottom: 22px;
@@ -673,7 +650,6 @@ footer span { color: var(--aloe); }
  
 .float-btn:hover .float-label { opacity: 1; }
  
-/* ── POPUP ── */
 .popup-overlay {
   display: none;
   position: fixed;
@@ -773,7 +749,6 @@ footer span { color: var(--aloe); }
   letter-spacing: 0.3px;
 }
  
-/* ── CARRITO ── */
 .cart-overlay {
   display: none;
   position: fixed;
@@ -873,7 +848,6 @@ footer span { color: var(--aloe); }
   font-family: 'Jost', sans-serif;
 }
  
-/* ── GRACIAS ── */
 .gracias-overlay {
   display: none;
   position: fixed;
@@ -925,7 +899,6 @@ footer span { color: var(--aloe); }
  
 .gracias-btn:hover { background: var(--moss); }
  
-/* ── ANIMACIONES ── */
 @keyframes fadeDown {
   from { opacity: 0; transform: translateY(-16px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -961,14 +934,13 @@ footer span { color: var(--aloe); }
   <div class="hero-badge">🚩 Envíos disponibles · Regalo incluido 🎁</div>
 </div>
  
-<!-- CONTADOR DE CONFIANZA -->
 <div class="stats-strip reveal">
   <div class="stat-item">
     <span class="stat-num">+500</span>
     <span class="stat-label">Mates felices</span>
   </div>
   <div class="stat-item">
-    <span class="stat-num">8</span>
+    <span class="stat-num">9</span>
     <span class="stat-label">Variedades</span>
   </div>
   <div class="stat-item">
@@ -1002,7 +974,6 @@ footer span { color: var(--aloe); }
   </div>
 </div>
  
-<!-- PRODUCTOS -->
 <div class="section-header reveal">
   <h2>Nuestras Yerbas</h2>
   <p>Seleccionadas con cuidado · Entregadas con un regalo 🎁</p>
@@ -1015,7 +986,6 @@ footer span { color: var(--aloe); }
 <div class="regalo-banner reveal">🎁 Con cada yerba que comprás, te mandamos un regalo incluido sin costo adicional</div>
 <div class="products" id="productos"></div>
  
-<!-- CÓMO COMPRAR -->
 <div class="como-comprar reveal">
   <h2>¿Cómo comprar?</h2>
   <p class="subtitulo">Simple, rápido y directo</p>
@@ -1047,7 +1017,6 @@ footer span { color: var(--aloe); }
   </div>
 </div>
  
-<!-- POR QUÉ ELEGIRNOS -->
 <div class="porque reveal">
   <h2>¿Por qué elegirnos?</h2>
   <p class="subtitulo">Más que una tienda, somos una comunidad matera</p>
@@ -1090,7 +1059,6 @@ footer span { color: var(--aloe); }
   </div>
 </div>
  
-<!-- CÓMO ARMAR TU MATE -->
 <div class="montana-mate reveal">
   <h2>¿Cómo armar tu montañita?</h2>
   <p class="subtitulo">El secreto para un mate perfecto, paso a paso</p>
@@ -1137,7 +1105,6 @@ footer span { color: var(--aloe); }
   </div>
 </div>
  
-<!-- REDES -->
 <div class="redes reveal">
   <h2>Seguinos en nuestras redes</h2>
   <div class="divisor" style="margin-bottom:22px;">
@@ -1177,7 +1144,6 @@ footer span { color: var(--aloe); }
   © 2025 <span>Una Montañita</span> — Todos los derechos reservados 🌿
 </footer>
  
-<!-- BOTONES FLOTANTES -->
 <div class="floating-btns">
   <a class="float-btn float-ig" href="https://www.instagram.com/unamontanita" target="_blank">
     <span class="float-label">Instagram</span>
@@ -1189,7 +1155,6 @@ footer span { color: var(--aloe); }
   </a>
 </div>
  
-<!-- POPUPS -->
 <div class="popup-overlay" id="popup-overlay" onclick="cerrarPopupOverlay(event)">
   <div class="popup">
     <img class="popup-img" id="popup-img" src="" alt="">
@@ -1231,9 +1196,10 @@ const productos = [
   { id: 3, nombre: "Canarias Serena", desc: "Mezcla suave con hierbas: toronjil, mburucuyá, menta y tilo. Mantiene el sabor del mate pero con menor intensidad.", precio: 10800, img: "./canarias-serena.jpg", stock: 8 },
   { id: 4, nombre: "Canarias Té Verde y Jengibre", desc: "Yerba con té verde (antioxidante) y jengibre (digestivo). No se recomienda su uso prolongado ni para niños.", precio: 11000, img: "./canarias-teverde.jpg", stock: 4 },
   { id: 5, nombre: "Canarias Té Rojo y Centellas", desc: "Yerba con té rojo (apoyo en pérdida de peso) y centella (piel y celulitis). No para embarazadas, lactancia ni uso prolongado.", precio: 11000, img: "./canarias-terojo.jpg", stock: 5 },
-  { id: 6, nombre: "Baldo", desc: "Yerba 100% hoja, sin polvo ni palo. Molienda fina que mejora la infusión y es más amigable para el sistema digestivo.", precio: 10000, img: "./baldo.jpg", stock: 7 },
-  { id: 7, nombre: "Rei Verde Tradicional", desc: "Yerba mate uruguaya de padrón exportación. Sabor tradicional, suave y equilibrado. Ideal para el mate del día a día.", precio: 8800, img: "./rei-verde-tradicional.jpg", stock: 0 },
-  { id: 8, nombre: "Rei Verde Premium", desc: "Línea premium de Rei Verde con selección especial de hojas. Mayor suavidad y aroma. Una experiencia de mate de nivel superior.", precio: 9200, img: "./rei-verde-premium.jpg", stock: 0 },
+  { id: 6, nombre: "Canarias Suave", desc: "Yerba mate suave y ligera, ideal para quienes prefieren un sabor más amigable sin perder el cuerpo y rendimiento característico de Canarias. Molienda fina tipo uruguaya, sin palo.", precio: 11200, img: "./canarias-suave.jpg", stock: 4 },
+  { id: 7, nombre: "Baldo", desc: "Yerba 100% hoja, sin polvo ni palo. Molienda fina que mejora la infusión y es más amigable para el sistema digestivo.", precio: 10000, img: "./baldo.jpg", stock: 7 },
+  { id: 8, nombre: "Rei Verde Tradicional", desc: "Yerba mate uruguaya de padrón exportación. Sabor tradicional, suave y equilibrado. Ideal para el mate del día a día.", precio: 8800, img: "./rei-verde-tradicional.jpg", stock: 0 },
+  { id: 9, nombre: "Rei Verde Premium", desc: "Línea premium de Rei Verde con selección especial de hojas. Mayor suavidad y aroma. Una experiencia de mate de nivel superior.", precio: 9200, img: "./rei-verde-premium.jpg", stock: 0 },
 ];
  
 let carrito = [];
@@ -1361,7 +1327,6 @@ function comprarPorWpp() {
  
 function cerrarGracias() { document.getElementById("gracias-overlay").classList.remove("open"); }
  
-// SCROLL REVEAL
 function observeAll() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
