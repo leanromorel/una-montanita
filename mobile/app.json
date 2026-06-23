@@ -31,6 +31,19 @@
             "imageWidth": 120
           }
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Una Montañita necesita acceso a tus fotos para que puedas elegir tu foto de perfil."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#2C3424"
+        }
       ]
     ],
     "experiments": {

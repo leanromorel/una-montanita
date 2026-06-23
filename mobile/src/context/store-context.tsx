@@ -18,12 +18,17 @@ export type Pedido = {
   estado: EstadoPedido;
 };
 
-export type Usuario = { nombre: string; telefono: string };
+export type Usuario = { nombre: string; telefono: string; email?: string; foto?: string };
 
 type StoreContextValue = {
   usuario: Usuario | null;
-  login: (nombre: string, telefono: string) => void;
+  login: (nombre: string, telefono: string, email?: string) => void;
   logout: () => void;
+  actualizarFoto: (foto: string) => void;
+  actualizarEmail: (email: string) => void;
+
+  notificacionesActivas: boolean;
+  setNotificacionesActivas: (activas: boolean) => void;
 
   productos: Producto[];
 
@@ -63,13 +68,22 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [usuario, setUsuario] = useState<Usuario | null>(null);
   const [carrito, setCarrito] = useState<CartItem[]>([]);
   const [pedidos, setPedidos] = useState<Pedido[]>([pedidoSeed()]);
+  const [notificacionesActivas, setNotificacionesActivas] = useState(false);
 
-  function login(nombre: string, telefono: string) {
-    setUsuario({ nombre, telefono });
+  function login(nombre: string, telefono: string, email?: string) {
+    setUsuario({ nombre, telefono, email });
   }
 
   function logout() {
     setUsuario(null);
+  }
+
+  function actualizarFoto(foto: string) {
+    setUsuario((prev) => (prev ? { ...prev, foto } : prev));
+  }
+
+  function actualizarEmail(email: string) {
+    setUsuario((prev) => (prev ? { ...prev, email } : prev));
   }
 
   function agregarAlCarrito(productoId: number) {
@@ -136,6 +150,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     usuario,
     login,
     logout,
+    actualizarFoto,
+    actualizarEmail,
+    notificacionesActivas,
+    setNotificacionesActivas,
     productos,
     carrito,
     agregarAlCarrito,

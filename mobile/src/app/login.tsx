@@ -12,10 +12,11 @@ export default function LoginScreen() {
   const { login } = useStore();
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');
+  const [email, setEmail] = useState('');
 
   function handleIngresar() {
     if (!nombre.trim() || !telefono.trim()) return;
-    login(nombre.trim(), telefono.trim());
+    login(nombre.trim(), telefono.trim(), email.trim() || undefined);
     router.replace('/');
   }
 
@@ -45,6 +46,16 @@ export default function LoginScreen() {
             keyboardType="phone-pad"
             value={telefono}
             onChangeText={setTelefono}
+          />
+          <Text style={styles.label}>Tu email (opcional)</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Ej: lucas@gmail.com"
+            placeholderTextColor={Colors.cedar}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            value={email}
+            onChangeText={setEmail}
           />
           <PrimaryButton title="Ingresar" onPress={handleIngresar} />
           <Text style={styles.nota}>
