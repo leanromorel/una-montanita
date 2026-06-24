@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -21,10 +20,6 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 
 import { productos as productosBase, type Producto } from '@/data/productos';
 import { auth, db } from '@/lib/firebase';
-
-function fotoKey(uid: string) {
-  return `foto-perfil-${uid}`;
-}
 
 const ADMIN_EMAILS = ['learomorel@gmail.com'];
 
@@ -136,13 +131,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       }
       const snap = await getDoc(doc(db, 'usuarios', firebaseUser.uid));
       const datos = snap.data();
-      const foto = (await AsyncStorage.getItem(fotoKey(firebaseUser.uid))) ?? undefined;
       setUsuario({
         uid: firebaseUser.uid,
         nombre: datos?.nombre ?? '',
         telefono: datos?.telefono ?? '',
         email: firebaseUser.email ?? '',
-        foto,
+        foto: datos?.foto ?? undefined,
       });
       setNotificacionesActivasState(datos?.notificacionesActivas ?? false);
       setCargandoSesion(false);
@@ -239,7 +233,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   async function actualizarFoto(uri: string) {
     if (!usuario) return;
-    await AsyncStorage.setItem(fotoKey(usuario.uid), uri);
+    await setDoc(doc(db, 'usuarios', usuario.uid), { foto: uri }, { merge: true });
     setUsuario((prev) => (prev ? { ...prev, foto: uri } : prev));
   }
 

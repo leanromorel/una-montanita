@@ -1,4 +1,5 @@
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import * as ImageManipulator from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import {
@@ -36,8 +37,15 @@ export default function PerfilScreen() {
       aspect: [1, 1],
       quality: 0.7,
     });
-    if (!resultado.canceled && resultado.assets[0]) {
-      actualizarFoto(resultado.assets[0].uri);
+    if (resultado.canceled || !resultado.assets[0]) return;
+
+    const chica = await ImageManipulator.manipulateAsync(
+      resultado.assets[0].uri,
+      [{ resize: { width: 200, height: 200 } }],
+      { compress: 0.6, format: ImageManipulator.SaveFormat.JPEG, base64: true },
+    );
+    if (chica.base64) {
+      actualizarFoto(`data:image/jpeg;base64,${chica.base64}`);
     }
   }
 
