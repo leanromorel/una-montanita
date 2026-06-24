@@ -44,6 +44,13 @@ export type Pedido = {
   estado: EstadoPedido;
 };
 
+export type PedidoAdmin = Pedido & {
+  docId: string;
+  clienteNombre: string;
+  clienteTelefono: string;
+  clienteEmail: string;
+};
+
 export type Usuario = { uid: string; nombre: string; telefono: string; email: string; foto?: string };
 
 type StoreContextValue = {
@@ -73,6 +80,9 @@ type StoreContextValue = {
   ultimoPedido: Pedido | undefined;
   repetirUltimoPedido: () => void;
   confirmarPedido: (metodoPago: MetodoPago, entrega: Entrega) => Promise<Pedido | null>;
+
+  pedidosTodos: PedidoAdmin[];
+  actualizarEstadoPedido: (docId: string, estado: EstadoPedido) => Promise<void>;
 };
 
 const StoreContext = createContext<StoreContextValue | null>(null);
@@ -99,6 +109,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [cargandoSesion, setCargandoSesion] = useState(true);
   const [carrito, setCarrito] = useState<CartItem[]>([]);
   const [pedidos, setPedidos] = useState<Pedido[]>([]);
+  const [pedidosTodos, setPedidosTodos] = useState<PedidoAdmin[]>([]);
   const [notificacionesActivas, setNotificacionesActivasState] = useState(false);
   const [overridesProductos, setOverridesProductos] = useState<
     Record<number, { precio?: number; stock?: number }>
@@ -164,6 +175,35 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     });
     return unsub;
   }, [usuario?.uid]);
+
+  useEffect(() => {
+    if (!usuario || !ADMIN_EMAILS.includes(usuario.email)) {
+      setPedidosTodos([]);
+      return;
+    }
+    const q = query(collection(db, 'pedidos'), orderBy('creadoEn', 'desc'));
+    const unsub = onSnapshot(q, (snap) => {
+      setPedidosTodos(
+        snap.docs.map((d) => {
+          const data = d.data();
+          return {
+            docId: d.id,
+            id: data.numero,
+            fecha: data.fecha,
+            items: data.items,
+            total: data.total,
+            metodoPago: data.metodoPago,
+            entrega: data.entrega,
+            estado: data.estado,
+            clienteNombre: data.clienteNombre ?? '',
+            clienteTelefono: data.clienteTelefono ?? '',
+            clienteEmail: data.clienteEmail ?? '',
+          } as PedidoAdmin;
+        }),
+      );
+    });
+    return unsub;
+  }, [usuario?.uid, usuario?.email]);
 
   async function registrarse(
     nombre: string,
@@ -278,10 +318,17 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       entrega,
       estado: 'Pendiente',
       creadoEn: Date.now(),
+      clienteNombre: usuario.nombre,
+      clienteTelefono: usuario.telefono,
+      clienteEmail: usuario.email,
     });
     const nuevoPedido: Pedido = { id: numero, fecha, items: carrito, total, metodoPago, entrega, estado: 'Pendiente' };
     setCarrito([]);
     return nuevoPedido;
+  }
+
+  async function actualizarEstadoPedido(docId: string, estado: EstadoPedido) {
+    await updateDoc(doc(db, 'pedidos', docId), { estado });
   }
 
   const totalCarrito = useMemo(
@@ -316,6 +363,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     ultimoPedido: pedidos[0],
     repetirUltimoPedido,
     confirmarPedido,
+    pedidosTodos,
+    actualizarEstadoPedido,
   };
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
