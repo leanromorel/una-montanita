@@ -1,3 +1,4 @@
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -20,6 +21,14 @@ function Chip({
 }) {
   return (
     <Pressable style={[styles.chip, selected && styles.chipSelected]} onPress={onPress}>
+      {label === 'Mercado Pago' && (
+        <FontAwesome5
+          name="money-check-alt"
+          size={14}
+          color={selected ? Colors.white : '#009EE3'}
+          style={styles.chipIcon}
+        />
+      )}
       <Text style={[styles.chipText, selected && styles.chipTextSelected]}>{label}</Text>
     </Pressable>
   );
@@ -144,12 +153,15 @@ const styles = StyleSheet.create({
   seccion: { fontSize: 13, fontWeight: '700', color: Colors.moss, marginBottom: Spacing.sm },
   chipsRow: { flexDirection: 'row', gap: Spacing.sm, marginBottom: Spacing.lg, flexWrap: 'wrap' },
   chip: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1.5,
     borderColor: Colors.cypress,
     borderRadius: Radius.pill,
     paddingHorizontal: 14,
     paddingVertical: 8,
   },
+  chipIcon: { marginRight: 6 },
   chipSelected: { backgroundColor: Colors.cypress },
   chipText: { color: Colors.cypress, fontSize: 12, fontWeight: '600' },
   chipTextSelected: { color: Colors.white },

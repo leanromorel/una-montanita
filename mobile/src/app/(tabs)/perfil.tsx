@@ -1,3 +1,4 @@
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import {
@@ -17,7 +18,7 @@ import { useStore } from '@/context/store-context';
 
 export default function PerfilScreen() {
   const router = useRouter();
-  const { usuario, logout, actualizarFoto, notificacionesActivas, setNotificacionesActivas } =
+  const { usuario, logout, actualizarFoto, notificacionesActivas, setNotificacionesActivas, esAdmin } =
     useStore();
 
   function handleLogout() {
@@ -63,16 +64,32 @@ export default function PerfilScreen() {
       </View>
 
       <View style={styles.redes}>
-        <Text style={styles.redItem} onPress={() => Linking.openURL('https://www.instagram.com/unamontanita')}>
-          📷 Seguinos en Instagram
-        </Text>
-        <Text style={styles.redItem} onPress={() => Linking.openURL('https://www.tiktok.com/@unamontaita1')}>
-          🎵 Seguinos en TikTok
-        </Text>
-        <Text style={styles.redItem} onPress={() => Linking.openURL('https://wa.me/543772634185')}>
-          💬 Escribinos por WhatsApp
-        </Text>
+        <TouchableOpacity
+          style={styles.redItem}
+          onPress={() => Linking.openURL('https://www.instagram.com/unamontanita')}>
+          <FontAwesome5 name="instagram" size={18} color="#E1306C" style={styles.redIcon} />
+          <Text style={styles.redItemTexto}>Seguinos en Instagram</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.redItem}
+          onPress={() => Linking.openURL('https://www.tiktok.com/@unamontaita1')}>
+          <FontAwesome5 name="tiktok" size={18} color="#000000" style={styles.redIcon} />
+          <Text style={styles.redItemTexto}>Seguinos en TikTok</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.redItem, styles.redItemUltimo]}
+          onPress={() => Linking.openURL('https://wa.me/543772634185')}>
+          <FontAwesome5 name="whatsapp" size={18} color="#25D366" style={styles.redIcon} />
+          <Text style={styles.redItemTexto}>Escribinos por WhatsApp</Text>
+        </TouchableOpacity>
       </View>
+
+      {esAdmin && (
+        <PrimaryButton
+          title="⚙️ Administrar precios y stock"
+          onPress={() => router.push('/admin')}
+        />
+      )}
 
       <PrimaryButton title="Cerrar sesión" variant="outline" onPress={handleLogout} />
     </ScrollView>
@@ -115,11 +132,14 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.lg,
   },
   redItem: {
-    fontSize: 14,
-    color: Colors.moss,
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: 14,
     paddingHorizontal: Spacing.lg,
     borderBottomWidth: 1,
     borderBottomColor: Colors.aloe,
   },
+  redItemUltimo: { borderBottomWidth: 0 },
+  redIcon: { width: 22, textAlign: 'center', marginRight: 10 },
+  redItemTexto: { fontSize: 14, color: Colors.moss },
 });

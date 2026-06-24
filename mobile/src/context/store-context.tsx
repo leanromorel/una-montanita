@@ -19,12 +19,14 @@ import {
 } from 'firebase/firestore';
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 
-import { productos, type Producto } from '@/data/productos';
+import { productos as productosBase, type Producto } from '@/data/productos';
 import { auth, db } from '@/lib/firebase';
 
 function fotoKey(uid: string) {
   return `foto-perfil-${uid}`;
 }
+
+const ADMIN_EMAILS = ['learomorel@gmail.com'];
 
 export type CartItem = { producto: Producto; cantidad: number };
 
@@ -56,7 +58,9 @@ type StoreContextValue = {
   notificacionesActivas: boolean;
   setNotificacionesActivas: (activas: boolean) => void;
 
+  esAdmin: boolean;
   productos: Producto[];
+  actualizarProducto: (productoId: number, cambios: { precio?: number; stock?: number }) => Promise<void>;
 
   carrito: CartItem[];
   agregarAlCarrito: (productoId: number) => void;
@@ -96,6 +100,20 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [carrito, setCarrito] = useState<CartItem[]>([]);
   const [pedidos, setPedidos] = useState<Pedido[]>([]);
   const [notificacionesActivas, setNotificacionesActivasState] = useState(false);
+  const [overridesProductos, setOverridesProductos] = useState<
+    Record<number, { precio?: number; stock?: number }>
+  >({});
+
+  useEffect(() => {
+    const unsub = onSnapshot(collection(db, 'productos'), (snap) => {
+      const overrides: Record<number, { precio?: number; stock?: number }> = {};
+      snap.docs.forEach((d) => {
+        overrides[Number(d.id)] = d.data() as { precio?: number; stock?: number };
+      });
+      setOverridesProductos(overrides);
+    });
+    return unsub;
+  }, []);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -196,6 +214,21 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  const esAdmin = !!usuario && ADMIN_EMAILS.includes(usuario.email);
+
+  const productos: Producto[] = useMemo(
+    () =>
+      productosBase.map((p) => ({
+        ...p,
+        ...overridesProductos[p.id],
+      })),
+    [overridesProductos],
+  );
+
+  async function actualizarProducto(productoId: number, cambios: { precio?: number; stock?: number }) {
+    await setDoc(doc(db, 'productos', String(productoId)), cambios, { merge: true });
+  }
+
   function agregarAlCarrito(productoId: number) {
     setCarrito((prev) => {
       const existe = prev.find((it) => it.producto.id === productoId);
@@ -270,7 +303,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     actualizarEmail,
     notificacionesActivas,
     setNotificacionesActivas,
+    esAdmin,
     productos,
+    actualizarProducto,
     carrito,
     agregarAlCarrito,
     cambiarCantidad,

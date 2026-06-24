@@ -47,6 +47,14 @@ export default function RootLayout() {
               headerTintColor: Colors.white,
             }}
           />
+          <Stack.Screen
+            name="admin"
+            options={{
+              title: 'Administrar',
+              headerStyle: { backgroundColor: Colors.moss },
+              headerTintColor: Colors.white,
+            }}
+          />
         </Stack>
       </AuthGate>
     </StoreProvider>
