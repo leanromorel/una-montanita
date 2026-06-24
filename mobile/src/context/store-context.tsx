@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -16,11 +17,14 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 
 import { productos, type Producto } from '@/data/productos';
-import { auth, db, storage } from '@/lib/firebase';
+import { auth, db } from '@/lib/firebase';
+
+function fotoKey(uid: string) {
+  return `foto-perfil-${uid}`;
+}
 
 export type CartItem = { producto: Producto; cantidad: number };
 
@@ -103,12 +107,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       }
       const snap = await getDoc(doc(db, 'usuarios', firebaseUser.uid));
       const datos = snap.data();
+      const foto = (await AsyncStorage.getItem(fotoKey(firebaseUser.uid))) ?? undefined;
       setUsuario({
         uid: firebaseUser.uid,
         nombre: datos?.nombre ?? '',
         telefono: datos?.telefono ?? '',
         email: firebaseUser.email ?? '',
-        foto: datos?.foto,
+        foto,
       });
       setNotificacionesActivasState(datos?.notificacionesActivas ?? false);
       setCargandoSesion(false);
@@ -176,13 +181,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   async function actualizarFoto(uri: string) {
     if (!usuario) return;
-    const respuesta = await fetch(uri);
-    const blob = await respuesta.blob();
-    const fotoRef = ref(storage, `fotos-perfil/${usuario.uid}.jpg`);
-    await uploadBytes(fotoRef, blob);
-    const url = await getDownloadURL(fotoRef);
-    await updateDoc(doc(db, 'usuarios', usuario.uid), { foto: url });
-    setUsuario((prev) => (prev ? { ...prev, foto: url } : prev));
+    await AsyncStorage.setItem(fotoKey(usuario.uid), uri);
+    setUsuario((prev) => (prev ? { ...prev, foto: uri } : prev));
   }
 
   function actualizarEmail(email: string) {
