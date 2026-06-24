@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
@@ -53,6 +54,7 @@ type StoreContextValue = {
   cargandoSesion: boolean;
   registrarse: (nombre: string, telefono: string, email: string, password: string) => Promise<string | null>;
   ingresar: (email: string, password: string) => Promise<string | null>;
+  recuperarContrasena: (email: string) => Promise<string | null>;
   logout: () => void;
   actualizarFoto: (uri: string) => Promise<void>;
   actualizarEmail: (email: string) => void;
@@ -94,6 +96,8 @@ function traducirErrorAuth(codigo: string): string {
     case 'auth/wrong-password':
     case 'auth/user-not-found':
       return 'Email o contraseña incorrectos.';
+    case 'auth/too-many-requests':
+      return 'Demasiados intentos. Esperá un momento y probá de nuevo.';
     default:
       return 'Ocurrió un error. Probá de nuevo.';
   }
@@ -227,6 +231,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  async function recuperarContrasena(email: string): Promise<string | null> {
+    try {
+      await sendPasswordResetEmail(auth, email);
+      return null;
+    } catch (e: any) {
+      return traducirErrorAuth(e?.code ?? '');
+    }
+  }
+
   function logout() {
     signOut(auth);
   }
@@ -302,11 +315,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     const total = carrito.reduce((acc, it) => acc + it.producto.precio * it.cantidad, 0);
     const numero = `P-${1000 + pedidos.length + 1}`;
     const fecha = new Date().toLocaleDateString('es-AR');
+    const itemsParaGuardar = carrito.map((it) => {
+      const { img, ...productoSinImagen } = it.producto;
+      return { producto: productoSinImagen, cantidad: it.cantidad };
+    });
     await addDoc(collection(db, 'pedidos'), {
       uid: usuario.uid,
       numero,
       fecha,
-      items: carrito,
+      items: itemsParaGuardar,
       total,
       metodoPago,
       entrega,
@@ -339,6 +356,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     cargandoSesion,
     registrarse,
     ingresar,
+    recuperarContrasena,
     logout,
     actualizarFoto,
     actualizarEmail,

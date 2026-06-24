@@ -18,17 +18,36 @@ import { useStore } from '@/context/store-context';
 
 export default function LoginScreen() {
   const router = useRouter();
-  const { ingresar, registrarse } = useStore();
+  const { ingresar, registrarse, recuperarContrasena } = useStore();
   const [modo, setModo] = useState<'ingresar' | 'registrarse'>('registrarse');
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [mensaje, setMensaje] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
+
+  async function handleOlvideContrasena() {
+    setError(null);
+    setMensaje(null);
+    if (!email.trim()) {
+      setError('Escribí tu email arriba primero.');
+      return;
+    }
+    setEnviando(true);
+    const err = await recuperarContrasena(email.trim());
+    setEnviando(false);
+    if (err) {
+      setError(err);
+      return;
+    }
+    setMensaje('Te enviamos un email para que puedas cambiar tu contraseña.');
+  }
 
   async function handleIngresar() {
     setError(null);
+    setMensaje(null);
     if (!email.trim() || !password.trim()) return;
     if (modo === 'registrarse' && (!nombre.trim() || !telefono.trim())) return;
 
@@ -97,7 +116,14 @@ export default function LoginScreen() {
             onChangeText={setPassword}
           />
 
+          {modo === 'ingresar' && (
+            <Pressable onPress={handleOlvideContrasena}>
+              <Text style={styles.olvideContrasena}>¿Olvidaste tu contraseña?</Text>
+            </Pressable>
+          )}
+
           {error && <Text style={styles.error}>{error}</Text>}
+          {mensaje && <Text style={styles.mensaje}>{mensaje}</Text>}
 
           <PrimaryButton
             title={enviando ? 'Un momento...' : modo === 'registrarse' ? 'Registrarme' : 'Ingresar'}
@@ -152,6 +178,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   error: { color: '#b3261e', fontSize: 12, marginBottom: Spacing.sm, textAlign: 'center' },
+  mensaje: { color: Colors.moss, fontSize: 12, marginBottom: Spacing.sm, textAlign: 'center' },
+  olvideContrasena: {
+    fontSize: 12,
+    color: Colors.olive,
+    textAlign: 'right',
+    marginBottom: Spacing.md,
+    textDecorationLine: 'underline',
+  },
   cambiarModo: {
     fontSize: 12,
     color: Colors.olive,
