@@ -1,6 +1,5 @@
 import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
 import {
   Image,
   Linking,
@@ -8,7 +7,6 @@ import {
   StyleSheet,
   Switch,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -19,15 +17,8 @@ import { useStore } from '@/context/store-context';
 
 export default function PerfilScreen() {
   const router = useRouter();
-  const {
-    usuario,
-    logout,
-    actualizarFoto,
-    actualizarEmail,
-    notificacionesActivas,
-    setNotificacionesActivas,
-  } = useStore();
-  const [email, setEmail] = useState(usuario?.email ?? '');
+  const { usuario, logout, actualizarFoto, notificacionesActivas, setNotificacionesActivas } =
+    useStore();
 
   function handleLogout() {
     logout();
@@ -49,10 +40,6 @@ export default function PerfilScreen() {
     }
   }
 
-  function handleGuardarEmail() {
-    actualizarEmail(email.trim());
-  }
-
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
       <TouchableOpacity onPress={handleElegirFoto}>
@@ -64,20 +51,7 @@ export default function PerfilScreen() {
       </TouchableOpacity>
       <Text style={styles.nombre}>{usuario?.nombre}</Text>
       <Text style={styles.telefono}>{usuario?.telefono}</Text>
-
-      <View style={styles.emailBox}>
-        <Text style={styles.label}>Tu email</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Ej: lucas@gmail.com"
-          placeholderTextColor={Colors.cedar}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          value={email}
-          onChangeText={setEmail}
-          onBlur={handleGuardarEmail}
-        />
-      </View>
+      <Text style={styles.telefono}>{usuario?.email}</Text>
 
       <View style={styles.notifBox}>
         <Text style={styles.notifTexto}>🔔 Avisarme de novedades y productos nuevos</Text>
@@ -118,18 +92,6 @@ const styles = StyleSheet.create({
   },
   nombre: { fontSize: 20, fontWeight: '700', color: Colors.moss },
   telefono: { fontSize: 13, color: Colors.olive, marginBottom: Spacing.md },
-  label: { fontSize: 12, color: Colors.olive, fontWeight: '600', marginBottom: 6 },
-  emailBox: { width: '100%', marginBottom: Spacing.md },
-  input: {
-    borderWidth: 1.5,
-    borderColor: Colors.aloe,
-    borderRadius: Radius.sm,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    color: Colors.moss,
-    fontSize: 14,
-    backgroundColor: Colors.white,
-  },
   notifBox: {
     width: '100%',
     backgroundColor: Colors.white,

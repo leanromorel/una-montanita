@@ -32,9 +32,9 @@ export default function CarritoScreen() {
   const [entrega, setEntrega] = useState<Entrega | null>(null);
   const [confirmado, setConfirmado] = useState<Pedido | null>(null);
 
-  function handleConfirmar() {
+  async function handleConfirmar() {
     if (!metodoPago || !entrega) return;
-    const pedido = confirmarPedido(metodoPago, entrega);
+    const pedido = await confirmarPedido(metodoPago, entrega);
     if (pedido) setConfirmado(pedido);
   }
 

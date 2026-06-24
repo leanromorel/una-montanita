@@ -1,6 +1,26 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 
 import { productos, type Producto } from '@/data/productos';
+import { auth, db, storage } from '@/lib/firebase';
 
 export type CartItem = { producto: Producto; cantidad: number };
 
@@ -18,13 +38,15 @@ export type Pedido = {
   estado: EstadoPedido;
 };
 
-export type Usuario = { nombre: string; telefono: string; email?: string; foto?: string };
+export type Usuario = { uid: string; nombre: string; telefono: string; email: string; foto?: string };
 
 type StoreContextValue = {
   usuario: Usuario | null;
-  login: (nombre: string, telefono: string, email?: string) => void;
+  cargandoSesion: boolean;
+  registrarse: (nombre: string, telefono: string, email: string, password: string) => Promise<string | null>;
+  ingresar: (email: string, password: string) => Promise<string | null>;
   logout: () => void;
-  actualizarFoto: (foto: string) => void;
+  actualizarFoto: (uri: string) => Promise<void>;
   actualizarEmail: (email: string) => void;
 
   notificacionesActivas: boolean;
@@ -42,48 +64,136 @@ type StoreContextValue = {
   pedidos: Pedido[];
   ultimoPedido: Pedido | undefined;
   repetirUltimoPedido: () => void;
-  confirmarPedido: (metodoPago: MetodoPago, entrega: Entrega) => Pedido | null;
+  confirmarPedido: (metodoPago: MetodoPago, entrega: Entrega) => Promise<Pedido | null>;
 };
 
 const StoreContext = createContext<StoreContextValue | null>(null);
 
-function pedidoSeed(): Pedido {
-  const items: CartItem[] = [
-    { producto: productos[0], cantidad: 2 },
-    { producto: productos[3], cantidad: 1 },
-  ];
-  const total = items.reduce((acc, it) => acc + it.producto.precio * it.cantidad, 0);
-  return {
-    id: 'P-1001',
-    fecha: '12/06/2026',
-    items,
-    total,
-    metodoPago: 'Transferencia',
-    entrega: 'Envío a domicilio',
-    estado: 'Entregado',
-  };
+function traducirErrorAuth(codigo: string): string {
+  switch (codigo) {
+    case 'auth/email-already-in-use':
+      return 'Ese email ya está registrado. Probá ingresar en vez de registrarte.';
+    case 'auth/invalid-email':
+      return 'El email no es válido.';
+    case 'auth/weak-password':
+      return 'La contraseña debe tener al menos 6 caracteres.';
+    case 'auth/invalid-credential':
+    case 'auth/wrong-password':
+    case 'auth/user-not-found':
+      return 'Email o contraseña incorrectos.';
+    default:
+      return 'Ocurrió un error. Probá de nuevo.';
+  }
 }
 
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [usuario, setUsuario] = useState<Usuario | null>(null);
+  const [cargandoSesion, setCargandoSesion] = useState(true);
   const [carrito, setCarrito] = useState<CartItem[]>([]);
-  const [pedidos, setPedidos] = useState<Pedido[]>([pedidoSeed()]);
-  const [notificacionesActivas, setNotificacionesActivas] = useState(false);
+  const [pedidos, setPedidos] = useState<Pedido[]>([]);
+  const [notificacionesActivas, setNotificacionesActivasState] = useState(false);
 
-  function login(nombre: string, telefono: string, email?: string) {
-    setUsuario({ nombre, telefono, email });
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (!firebaseUser) {
+        setUsuario(null);
+        setPedidos([]);
+        setCargandoSesion(false);
+        return;
+      }
+      const snap = await getDoc(doc(db, 'usuarios', firebaseUser.uid));
+      const datos = snap.data();
+      setUsuario({
+        uid: firebaseUser.uid,
+        nombre: datos?.nombre ?? '',
+        telefono: datos?.telefono ?? '',
+        email: firebaseUser.email ?? '',
+        foto: datos?.foto,
+      });
+      setNotificacionesActivasState(datos?.notificacionesActivas ?? false);
+      setCargandoSesion(false);
+    });
+    return unsub;
+  }, []);
+
+  useEffect(() => {
+    if (!usuario) return;
+    const q = query(
+      collection(db, 'pedidos'),
+      where('uid', '==', usuario.uid),
+      orderBy('creadoEn', 'desc'),
+    );
+    const unsub = onSnapshot(q, (snap) => {
+      setPedidos(
+        snap.docs.map((d) => {
+          const data = d.data();
+          return {
+            id: data.numero,
+            fecha: data.fecha,
+            items: data.items,
+            total: data.total,
+            metodoPago: data.metodoPago,
+            entrega: data.entrega,
+            estado: data.estado,
+          } as Pedido;
+        }),
+      );
+    });
+    return unsub;
+  }, [usuario?.uid]);
+
+  async function registrarse(
+    nombre: string,
+    telefono: string,
+    email: string,
+    password: string,
+  ): Promise<string | null> {
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(doc(db, 'usuarios', cred.user.uid), {
+        nombre,
+        telefono,
+        notificacionesActivas: false,
+      });
+      return null;
+    } catch (e: any) {
+      return traducirErrorAuth(e?.code ?? '');
+    }
+  }
+
+  async function ingresar(email: string, password: string): Promise<string | null> {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      return null;
+    } catch (e: any) {
+      return traducirErrorAuth(e?.code ?? '');
+    }
   }
 
   function logout() {
-    setUsuario(null);
+    signOut(auth);
   }
 
-  function actualizarFoto(foto: string) {
-    setUsuario((prev) => (prev ? { ...prev, foto } : prev));
+  async function actualizarFoto(uri: string) {
+    if (!usuario) return;
+    const respuesta = await fetch(uri);
+    const blob = await respuesta.blob();
+    const fotoRef = ref(storage, `fotos-perfil/${usuario.uid}.jpg`);
+    await uploadBytes(fotoRef, blob);
+    const url = await getDownloadURL(fotoRef);
+    await updateDoc(doc(db, 'usuarios', usuario.uid), { foto: url });
+    setUsuario((prev) => (prev ? { ...prev, foto: url } : prev));
   }
 
   function actualizarEmail(email: string) {
-    setUsuario((prev) => (prev ? { ...prev, email } : prev));
+    // El email de inicio de sesión no se cambia desde aquí: queda fijo al registrarse.
+  }
+
+  function setNotificacionesActivas(activas: boolean) {
+    setNotificacionesActivasState(activas);
+    if (usuario) {
+      updateDoc(doc(db, 'usuarios', usuario.uid), { notificacionesActivas: activas });
+    }
   }
 
   function agregarAlCarrito(productoId: number) {
@@ -120,19 +230,23 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setCarrito(ultimo.items.map((it) => ({ ...it })));
   }
 
-  function confirmarPedido(metodoPago: MetodoPago, entrega: Entrega): Pedido | null {
-    if (carrito.length === 0) return null;
+  async function confirmarPedido(metodoPago: MetodoPago, entrega: Entrega): Promise<Pedido | null> {
+    if (carrito.length === 0 || !usuario) return null;
     const total = carrito.reduce((acc, it) => acc + it.producto.precio * it.cantidad, 0);
-    const nuevoPedido: Pedido = {
-      id: `P-${1000 + pedidos.length + 1}`,
-      fecha: new Date().toLocaleDateString('es-AR'),
+    const numero = `P-${1000 + pedidos.length + 1}`;
+    const fecha = new Date().toLocaleDateString('es-AR');
+    await addDoc(collection(db, 'pedidos'), {
+      uid: usuario.uid,
+      numero,
+      fecha,
       items: carrito,
       total,
       metodoPago,
       entrega,
       estado: 'Pendiente',
-    };
-    setPedidos((prev) => [nuevoPedido, ...prev]);
+      creadoEn: Date.now(),
+    });
+    const nuevoPedido: Pedido = { id: numero, fecha, items: carrito, total, metodoPago, entrega, estado: 'Pendiente' };
     setCarrito([]);
     return nuevoPedido;
   }
@@ -148,7 +262,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const value: StoreContextValue = {
     usuario,
-    login,
+    cargandoSesion,
+    registrarse,
+    ingresar,
     logout,
     actualizarFoto,
     actualizarEmail,
