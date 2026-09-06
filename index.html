@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -251,6 +250,78 @@ header {
 }
 
 .divisor-icon { font-size: 18px; }
+
+/* ── MENÚ HAMBURGUESA (☰ Yerbas / Mates) ── */
+.header-left {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 6px;
+}
+
+.menu-dropdown {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.22);
+  padding: 8px;
+  min-width: 170px;
+  z-index: 200;
+}
+
+.menu-dropdown.open { display: flex; }
+
+.menu-dropdown a {
+  text-decoration: none;
+  color: var(--moss);
+  font-weight: 600;
+  font-size: 12.5px;
+  font-family: 'Jost', sans-serif;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  padding: 11px 14px;
+  border-radius: 8px;
+  border-bottom: 1px solid rgba(44,52,36,0.06);
+  transition: 0.15s;
+}
+
+.menu-dropdown a:last-child { border-bottom: none; }
+
+.menu-dropdown a:hover { background: var(--aloe); }
+
+/* ── CARRUSEL DE MATES (mismo product-card, deslizable) ── */
+.mates-track {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 4px 14px 44px;
+  max-width: 1100px;
+  margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.mates-track::-webkit-scrollbar { display: none; }
+
+.mates-track .product-card {
+  flex: 0 0 auto;
+  width: 168px;
+  scroll-snap-align: start;
+}
 
 .section-header {
   text-align: center;
@@ -1105,9 +1176,18 @@ footer span { color: var(--aloe); }
 <body>
 
 <header>
-  <div class="logo">
-    <img src="./logo.png" alt="Logo" onerror="this.style.display='none'">
-    Una Montañita
+  <div class="header-left">
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="logo">
+      <img src="./logo.png" alt="Logo" onerror="this.style.display='none'">
+      Una Montañita
+    </div>
+    <div class="menu-dropdown" id="menu-dropdown">
+      <a href="#yerbas" onclick="closeMenu()">Yerbas</a>
+      <a href="#mates" onclick="closeMenu()">Mates</a>
+      <a href="#como-comprar" onclick="closeMenu()">Cómo comprar</a>
+      <a href="#porque" onclick="closeMenu()">Por qué elegirnos</a>
+    </div>
   </div>
   <button class="cart-btn" onclick="abrirCarrito()">
     🛒 Carrito
@@ -1162,7 +1242,7 @@ footer span { color: var(--aloe); }
   </div>
 </div>
 
-<div class="section-header reveal">
+<div class="section-header reveal" id="yerbas">
   <h2>Nuestras Yerbas</h2>
   <p>Seleccionadas con cuidado · Entregadas con un regalo 🎁</p>
   <div class="divisor" style="margin-top:14px;">
@@ -1174,7 +1254,18 @@ footer span { color: var(--aloe); }
 <div class="regalo-banner reveal">🎁 Con cada yerba que comprás, te mandamos un regalo incluido sin costo adicional</div>
 <div class="products" id="productos"></div>
 
-<div class="como-comprar reveal">
+<div class="section-header reveal" id="mates">
+  <h2>Nuestros Mates</h2>
+  <p>Piezas artesanales · Deslizá para ver todos 🧉</p>
+  <div class="divisor" style="margin-top:14px;">
+    <div class="divisor-linea"></div>
+    <span class="divisor-icon">🧉</span>
+    <div class="divisor-linea right"></div>
+  </div>
+</div>
+<div class="mates-track" id="mates-track"></div>
+
+<div class="como-comprar reveal" id="como-comprar">
   <h2>¿Cómo comprar?</h2>
   <p class="subtitulo">Simple, rápido y directo</p>
   <div class="pasos">
@@ -1205,7 +1296,7 @@ footer span { color: var(--aloe); }
   </div>
 </div>
 
-<div class="porque reveal">
+<div class="porque reveal" id="porque">
   <h2>¿Por qué elegirnos?</h2>
   <p class="subtitulo">Más que una tienda, somos una comunidad matera</p>
   <div class="divisor" style="margin-bottom:24px;">
@@ -1421,15 +1512,18 @@ footer span { color: var(--aloe); }
 
 <script>
 const productos = [
-  { id: 1, nombre: "Canarias Tradicional", desc: "Yerba mate elaborada con hojas seleccionadas y estacionamiento adecuado. Sabor intenso y rendimiento alto.", precio: 10500, img: "./canarias-tradicional.jpg", stock: 0 },
-  { id: 2, nombre: "Canarias Edición Especial", desc: "Hojas de montes nativos con manejo sustentable. Estacionamiento prolongado y molienda uniforme. Sabor moderado, parejo y levemente ahumado.", precio: 11800, img: "./canarias-especial.jpg", stock: 10 },
-  { id: 3, nombre: "Canarias Serena", desc: "Mezcla suave con hierbas: toronjil, mburucuyá, menta y tilo. Mantiene el sabor del mate pero con menor intensidad.", precio: 11500, img: "./canarias-serena.jpg", stock: 10 },
-  { id: 4, nombre: "Canarias Té Verde y Jengibre", desc: "Yerba con té verde (antioxidante) y jengibre (digestivo). No se recomienda su uso prolongado ni para niños.", precio: 11800, img: "./canarias-teverde.jpg", stock: 10 },
-  { id: 5, nombre: "Canarias Té Rojo y Centellas", desc: "Yerba con té rojo (apoyo en pérdida de peso) y centella (piel y celulitis). No para embarazadas, lactancia ni uso prolongado.", precio: 11800, img: "./canarias-terojo.jpg", stock: 0 },
-  { id: 6, nombre: "Canarias Suave", desc: "Yerba mate suave y ligera, ideal para quienes prefieren un sabor más amigable sin perder el cuerpo y rendimiento característico de Canarias. Molienda fina tipo uruguaya, sin palo.", precio: 12000, img: "./canarias-suave.jpg", stock: 10 },
-  { id: 7, nombre: "Baldo", desc: "Yerba 100% hoja, sin polvo ni palo. Molienda fina que mejora la infusión y es más amigable para el sistema digestivo.", precio: 10500, img: "./baldo.jpg", stock: 0 },
-  { id: 8, nombre: "Rei Verde Tradicional", desc: "Yerba mate uruguaya de padrón exportación. Sabor tradicional, suave y equilibrado. Ideal para el mate del día a día.", precio: 9000, img: "./rei-verde-tradicional.jpg", stock: 0 },
-  { id: 9, nombre: "Rei Verde Premium", desc: "Línea premium de Rei Verde con selección especial de hojas. Mayor suavidad y aroma. Una experiencia de mate de nivel superior.", precio: 9500, img: "./rei-verde-premium.jpg", stock: 0 },
+  { id: 1, categoria: "yerba", nombre: "Canarias Tradicional", desc: "Yerba mate elaborada con hojas seleccionadas y estacionamiento adecuado. Sabor intenso y rendimiento alto.", precio: 9800, img: "./canarias-tradicional.jpg", stock: 4 },
+  { id: 2, categoria: "yerba", nombre: "Canarias Edición Especial", desc: "Hojas de montes nativos con manejo sustentable. Estacionamiento prolongado y molienda uniforme. Sabor moderado, parejo y levemente ahumado.", precio: 11000, img: "./canarias-especial.jpg", stock: 0 },
+  { id: 3, categoria: "yerba", nombre: "Canarias Serena", desc: "Mezcla suave con hierbas: toronjil, mburucuyá, menta y tilo. Mantiene el sabor del mate pero con menor intensidad.", precio: 10800, img: "./canarias-serena.jpg", stock: 0 },
+  { id: 4, categoria: "yerba", nombre: "Canarias Té Verde y Jengibre", desc: "Yerba con té verde (antioxidante) y jengibre (digestivo). No se recomienda su uso prolongado ni para niños.", precio: 11000, img: "./canarias-teverde.jpg", stock: 4 },
+  { id: 5, categoria: "yerba", nombre: "Canarias Té Rojo y Centellas", desc: "Yerba con té rojo (apoyo en pérdida de peso) y centella (piel y celulitis). No para embarazadas, lactancia ni uso prolongado.", precio: 11000, img: "./canarias-terojo.jpg", stock: 1 },
+  { id: 6, categoria: "yerba", nombre: "Canarias Suave", desc: "Yerba mate suave y ligera, ideal para quienes prefieren un sabor más amigable sin perder el cuerpo y rendimiento característico de Canarias. Molienda fina tipo uruguaya, sin palo.", precio: 11200, img: "./canarias-suave.jpg", stock: 0 },
+  { id: 7, categoria: "yerba", nombre: "Baldo", desc: "Yerba 100% hoja, sin polvo ni palo. Molienda fina que mejora la infusión y es más amigable para el sistema digestivo.", precio: 10000, img: "./baldo.jpg", stock: 0 },
+  { id: 8, categoria: "yerba", nombre: "Rei Verde Tradicional", desc: "Yerba mate uruguaya de padrón exportación. Sabor tradicional, suave y equilibrado. Ideal para el mate del día a día.", precio: 8800, img: "./rei-verde-tradicional.jpg", stock: 0 },
+  { id: 9, categoria: "yerba", nombre: "Rei Verde Premium", desc: "Línea premium de Rei Verde con selección especial de hojas. Mayor suavidad y aroma. Una experiencia de mate de nivel superior.", precio: 9200, img: "./rei-verde-premium.jpg", stock: 0 },
+  { id: 10, categoria: "mate", nombre: "Torpedo con virola uruguaya cincelada al lacre", desc: "Mate torpedo artesanal con virola uruguaya cincelada a mano, técnica \"al lacre\". Pieza de guarda trabajada en detalle.", precio: 45000, img: "./torpedo.jpg", stock: 99 },
+  { id: 11, categoria: "mate", nombre: "Mate Criollo de Calabaza (base de cuero)", desc: "Mate criollo de calabaza con base de cuero cosida a mano. Pieza artesanal, sin stock adicional una vez vendido.", precio: 17000, img: "./criollo-cuero.jpg", stock: 1 },
+  { id: 12, categoria: "mate", nombre: "Mate Criollo de Calabaza (base de alambre)", desc: "Mate criollo de calabaza con base de alambre, estilo tradicional.", precio: 10000, img: "./criollo-alambre.jpg", stock: 99 },
 ];
 
 let carrito = [];
@@ -1440,11 +1534,10 @@ function getStockBadge(stock) {
   return '';
 }
 
-function renderProductos() {
-  const cont = document.getElementById("productos");
-  cont.innerHTML = productos.map((p, i) => `
+function cardHTML(p, i) {
+  return `
     <div class="product-card reveal" style="animation-delay:${i*0.05}s" onclick="abrirPopup(${p.id})">
-      <div class="regalo-tag">🎁 Regalo</div>
+      ${p.categoria === "yerba" ? '<div class="regalo-tag">🎁 Regalo</div>' : ''}
       <div class="product-img-wrap">
         <img src="${p.img}" alt="${p.nombre}" onerror="this.style.display='none'">
       </div>
@@ -1455,7 +1548,14 @@ function renderProductos() {
         <button class="ver-btn">Ver producto</button>
       </div>
     </div>
-  `).join('');
+  `;
+}
+
+function renderProductos() {
+  const yerbas = productos.filter(p => p.categoria === "yerba");
+  const mates = productos.filter(p => p.categoria === "mate");
+  document.getElementById("productos").innerHTML = yerbas.map(cardHTML).join('');
+  document.getElementById("mates-track").innerHTML = mates.map(cardHTML).join('');
   observeAll();
 }
 
@@ -1580,6 +1680,17 @@ function registrarClub() {
   window.open("https://wa.me/543772634185?text=" + msg, "_blank");
   cerrarClub();
 }
+
+// MENÚ HAMBURGUESA
+function toggleMenu() { document.getElementById("menu-dropdown").classList.toggle("open"); }
+function closeMenu() { document.getElementById("menu-dropdown").classList.remove("open"); }
+document.addEventListener("click", function (e) {
+  const dd = document.getElementById("menu-dropdown");
+  const btn = document.querySelector(".menu-btn");
+  if (dd.classList.contains("open") && !dd.contains(e.target) && e.target !== btn) {
+    closeMenu();
+  }
+});
 
 function observeAll() {
   const observer = new IntersectionObserver((entries) => {
