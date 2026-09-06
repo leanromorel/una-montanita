@@ -775,11 +775,38 @@ footer span { color: var(--aloe); }
   to   { opacity: 1; transform: scale(1); }
 }
 
-.popup-img {
-  width: 100%; height: 230px;
-  object-fit: cover;
+.popup-gallery {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
   border-radius: 18px 18px 0 0;
 }
+.popup-gallery::-webkit-scrollbar { display: none; }
+
+.popup-gallery img {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  scroll-snap-align: start;
+}
+
+.popup-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 0 0;
+}
+
+.popup-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(44,52,36,0.2);
+}
+
+.popup-dots .dot.active { background: var(--cypress); }
 
 .popup-body { padding: 18px; }
 
@@ -1439,7 +1466,8 @@ footer span { color: var(--aloe); }
 <!-- POPUP PRODUCTOS -->
 <div class="popup-overlay" id="popup-overlay" onclick="cerrarPopupOverlay(event)">
   <div class="popup">
-    <img class="popup-img" id="popup-img" src="" alt="">
+    <div class="popup-gallery" id="popup-gallery" onscroll="onGalleryScroll()"></div>
+    <div class="popup-dots" id="popup-dots"></div>
     <div class="popup-body">
       <div class="popup-name" id="popup-name"></div>
       <div class="popup-desc" id="popup-desc"></div>
@@ -1521,9 +1549,9 @@ const productos = [
   { id: 7, categoria: "yerba", nombre: "Baldo", desc: "Yerba 100% hoja, sin polvo ni palo. Molienda fina que mejora la infusión y es más amigable para el sistema digestivo.", precio: 10000, img: "./baldo.jpg", stock: 0 },
   { id: 8, categoria: "yerba", nombre: "Rei Verde Tradicional", desc: "Yerba mate uruguaya de padrón exportación. Sabor tradicional, suave y equilibrado. Ideal para el mate del día a día.", precio: 8800, img: "./rei-verde-tradicional.jpg", stock: 0 },
   { id: 9, categoria: "yerba", nombre: "Rei Verde Premium", desc: "Línea premium de Rei Verde con selección especial de hojas. Mayor suavidad y aroma. Una experiencia de mate de nivel superior.", precio: 9200, img: "./rei-verde-premium.jpg", stock: 0 },
-  { id: 10, categoria: "mate", nombre: "Torpedo con virola uruguaya cincelada al lacre", desc: "Mate torpedo artesanal con virola uruguaya cincelada a mano, técnica \"al lacre\". Pieza de guarda trabajada en detalle.", precio: 45000, img: "./torpedo.jpg", stock: 99 },
-  { id: 11, categoria: "mate", nombre: "Mate Criollo de Calabaza (base de cuero)", desc: "Mate criollo de calabaza con base de cuero cosida a mano. Pieza artesanal, sin stock adicional una vez vendido.", precio: 17000, img: "./criollo-cuero.jpg", stock: 1 },
-  { id: 12, categoria: "mate", nombre: "Mate Criollo de Calabaza (base de alambre)", desc: "Mate criollo de calabaza con base de alambre, estilo tradicional.", precio: 10000, img: "./criollo-alambre.jpg", stock: 99 },
+  { id: 10, categoria: "mate", nombre: "Torpedo con virola uruguaya cincelada al lacre", desc: "Mate torpedo artesanal con virola uruguaya cincelada a mano, técnica \"al lacre\". Pieza de guarda trabajada en detalle.", precio: 45000, img: "./torpedo.jpg", imgs: ["./torpedo.jpg", "./torpedo-2.jpg", "./torpedo-3.jpg"], stock: 99 },
+  { id: 11, categoria: "mate", nombre: "Mate Criollo de Calabaza (base de cuero)", desc: "Mate criollo de calabaza con base de cuero cosida a mano. Pieza artesanal, sin stock adicional una vez vendido.", precio: 17000, img: "./criollo-cuero.jpg", imgs: ["./criollo-cuero.jpg", "./criollo-cuero-2.jpg", "./criollo-cuero-3.jpg"], stock: 1 },
+  { id: 12, categoria: "mate", nombre: "Mate Criollo de Calabaza (base de alambre)", desc: "Mate criollo de calabaza con base de alambre, estilo tradicional.", precio: 10000, img: "./criollo-alambre.jpg", imgs: ["./criollo-alambre.jpg", "./criollo-alambre-2.jpg"], stock: 99 },
 ];
 
 let carrito = [];
@@ -1561,7 +1589,13 @@ function renderProductos() {
 
 function abrirPopup(id) {
   const p = productos.find(x => x.id === id);
-  document.getElementById("popup-img").src = p.img;
+  const imgs = p.imgs && p.imgs.length ? p.imgs : [p.img];
+  document.getElementById("popup-gallery").innerHTML = imgs.map(
+    src => `<img src="${src}" alt="${p.nombre}">`
+  ).join('');
+  document.getElementById("popup-dots").innerHTML = imgs.length > 1
+    ? imgs.map((_, i) => `<div class="dot${i === 0 ? ' active' : ''}"></div>`).join('')
+    : '';
   document.getElementById("popup-name").textContent = p.nombre;
   document.getElementById("popup-desc").textContent = p.desc;
   document.getElementById("popup-price").textContent = '$' + p.precio.toLocaleString();
@@ -1577,6 +1611,14 @@ function abrirPopup(id) {
     btn.onclick = () => agregarDesdePopup(id);
   }
   document.getElementById("popup-overlay").classList.add("open");
+}
+
+function onGalleryScroll() {
+  const gallery = document.getElementById("popup-gallery");
+  const dots = document.querySelectorAll("#popup-dots .dot");
+  if (!dots.length) return;
+  const index = Math.round(gallery.scrollLeft / gallery.clientWidth);
+  dots.forEach((d, i) => d.classList.toggle("active", i === index));
 }
 
 function cerrarPopup() { document.getElementById("popup-overlay").classList.remove("open"); }
