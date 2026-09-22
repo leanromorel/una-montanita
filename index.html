@@ -1749,13 +1749,6 @@ function observeAll() {
 
 renderProductos();
 observeAll();
-
-// Si el link trae ?producto=ID, abre esa ficha directo
-const paramsUrl = new URLSearchParams(window.location.search);
-const productoUrl = parseInt(paramsUrl.get("producto"));
-if (!isNaN(productoUrl) && productos.some(p => p.id === productoUrl)) {
-  abrirPopup(productoUrl);
-}
 </script>
 </body>
 </html>
