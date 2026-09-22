@@ -383,6 +383,55 @@ header {
   box-shadow: 0 14px 32px rgba(44,52,36,0.15);
 }
 
+.card-menu-btn {
+  position: absolute;
+  top: 8px; right: 8px;
+  z-index: 3;
+  background: rgba(255,255,255,0.88);
+  border: none;
+  border-radius: 50%;
+  width: 26px; height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--moss);
+  cursor: pointer;
+  line-height: 1;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+.card-menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 38px; right: 8px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+  padding: 6px;
+  z-index: 4;
+  min-width: 150px;
+}
+
+.card-menu-dropdown.open { display: block; }
+
+.card-menu-dropdown button {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 9px 10px;
+  font-size: 12px;
+  font-family: 'Jost', sans-serif;
+  font-weight: 600;
+  color: var(--moss);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.card-menu-dropdown button:hover { background: var(--aloe); }
+
 .regalo-tag {
   position: absolute;
   top: 8px; left: 8px;
@@ -1567,6 +1616,10 @@ function cardHTML(p, i) {
   return `
     <div class="product-card reveal" style="animation-delay:${i*0.05}s" onclick="abrirPopup(${p.id})">
       ${p.categoria === "yerba" ? '<div class="regalo-tag">🎁 Regalo</div>' : ''}
+      <button class="card-menu-btn" onclick="toggleCardMenu(event, ${p.id})">⋮</button>
+      <div class="card-menu-dropdown" id="card-menu-${p.id}">
+        <button onclick="event.stopPropagation(); compartirProducto(${p.id});">🔗 Copiar / Compartir link</button>
+      </div>
       <div class="product-img-wrap">
         <img src="${p.img}" alt="${p.nombre}" onerror="this.style.display='none'">
       </div>
@@ -1614,6 +1667,38 @@ function abrirPopup(id) {
   document.getElementById("popup-overlay").classList.add("open");
 }
 
+function compartirProducto(id) {
+  const p = productos.find(x => x.id === id);
+  const url = new URL(window.location.href);
+  url.search = "";
+  url.searchParams.set("producto", id);
+  const link = url.toString();
+
+  document.querySelectorAll(".card-menu-dropdown.open").forEach(d => d.classList.remove("open"));
+
+  if (navigator.share) {
+    navigator.share({ title: p.nombre, text: "Mirá este producto de Una Montañita 🌿", url: link }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(link).then(() => {
+      alert("Link copiado:\n" + link);
+    }).catch(() => {
+      prompt("Copiá este link:", link);
+    });
+  }
+}
+
+function toggleCardMenu(e, id) {
+  e.stopPropagation();
+  document.querySelectorAll(".card-menu-dropdown.open").forEach(d => {
+    if (d.id !== "card-menu-" + id) d.classList.remove("open");
+  });
+  document.getElementById("card-menu-" + id).classList.toggle("open");
+}
+
+document.addEventListener("click", function () {
+  document.querySelectorAll(".card-menu-dropdown.open").forEach(d => d.classList.remove("open"));
+});
+
 function onGalleryScroll() {
   const gallery = document.getElementById("popup-gallery");
   const dots = document.querySelectorAll("#popup-dots .dot");
@@ -1622,7 +1707,9 @@ function onGalleryScroll() {
   dots.forEach((d, i) => d.classList.toggle("active", i === index));
 }
 
-function cerrarPopup() { document.getElementById("popup-overlay").classList.remove("open"); }
+function cerrarPopup() {
+  document.getElementById("popup-overlay").classList.remove("open");
+}
 function cerrarPopupOverlay(e) { if (e.target === document.getElementById("popup-overlay")) cerrarPopup(); }
 
 function agregarDesdePopup(id) {
@@ -1749,6 +1836,13 @@ function observeAll() {
 
 renderProductos();
 observeAll();
+
+// Si el link trae ?producto=ID, abre esa ficha directo (esto no modifica la URL, solo la lee)
+const paramsUrl = new URLSearchParams(window.location.search);
+const productoUrl = parseInt(paramsUrl.get("producto"));
+if (!isNaN(productoUrl) && productos.some(p => p.id === productoUrl)) {
+  abrirPopup(productoUrl);
+}
 </script>
 </body>
 </html>
