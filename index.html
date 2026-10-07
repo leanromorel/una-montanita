@@ -413,9 +413,9 @@ header {
 
 .product-card:hover .product-img-wrap img { transform: scale(1.07); }
 
-/* Bombillas: fotos verticales, se muestran completas */
-.product-img-wrap.contain { height: 220px; }
-.product-img-wrap.contain img { object-fit: contain; }
+/* Bombillas: la foto ocupa todo el recuadro (el popup la muestra completa) */
+.product-img-wrap.contain { height: 250px; }
+.product-img-wrap.contain img { object-fit: cover; object-position: center; }
 
 .product-info { padding: 11px 13px 13px; }
 
