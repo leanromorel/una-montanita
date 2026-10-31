@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel · Una Montañita</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --moss:#2C3424; --cypress:#4C583E; --olive:#768064; --cedar:#959581;
+  --aloe:#DADED8; --cream:#F4F2ED; --gold:#C9A84C; --danger:#8c2f2f;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{background:var(--cream);}
+body{font-family:'Jost',sans-serif;color:var(--moss);min-height:100vh;padding-bottom:env(safe-area-inset-bottom);}
+[hidden]{display:none !important;}
+button,input,select,textarea{font:inherit;color:inherit;}
+
+/* ── Barra superior ── */
+.topbar{position:sticky;top:0;z-index:20;background:var(--moss);color:var(--cream);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 16px;padding-top:calc(14px + env(safe-area-inset-top));}
+.topbar h1{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;letter-spacing:.3px;}
+.topbar-actions{display:flex;gap:8px;}
+.link-btn{background:transparent;border:1px solid rgba(244,242,237,.35);color:var(--cream);
+  border-radius:8px;padding:8px 12px;font-size:13px;font-weight:500;text-decoration:none;cursor:pointer;}
+
+/* ── Login ── */
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px;}
+.login-card{width:100%;max-width:380px;background:#fff;border-radius:16px;padding:28px 22px;
+  box-shadow:0 6px 28px rgba(44,52,36,.12);border:1px solid rgba(44,52,36,.07);}
+.login-card h1{font-family:'Cormorant Garamond',serif;font-size:30px;text-align:center;margin-bottom:4px;}
+.login-card .sub{text-align:center;color:var(--olive);font-size:14px;margin-bottom:22px;}
+
+/* ── Campos ── */
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;letter-spacing:.2px;}
+.field .hint{font-size:12px;color:var(--olive);margin-top:4px;}
+.input,.select,.textarea{width:100%;background:#fff;border:1.5px solid var(--aloe);border-radius:10px;
+  padding:13px 14px;font-size:16px;outline:none;transition:border-color .15s;}
+.input:focus,.select:focus,.textarea:focus{border-color:var(--cypress);}
+.textarea{min-height:110px;resize:vertical;line-height:1.5;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+/* ── Botones ── */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:50px;
+  border:none;border-radius:12px;font-weight:600;font-size:16px;cursor:pointer;
+  background:var(--cypress);color:var(--cream);transition:opacity .15s,transform .1s;}
+.btn:active{transform:scale(.98);}
+.btn:disabled{opacity:.55;cursor:default;}
+.btn.secondary{background:var(--aloe);color:var(--moss);}
+.btn.danger{background:transparent;color:var(--danger);border:1.5px solid var(--danger);}
+.spinner{width:18px;height:18px;border:2.5px solid rgba(244,242,237,.4);border-top-color:var(--cream);
+  border-radius:50%;animation:spin .7s linear infinite;}
+.btn.secondary .spinner,.btn.danger .spinner{border-color:rgba(44,52,36,.25);border-top-color:var(--moss);}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ── Lista ── */
+.wrap{max-width:720px;margin:0 auto;padding:16px;}
+.list-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;}
+.list-head h2{font-family:'Cormorant Garamond',serif;font-size:26px;}
+.list-head .btn{width:auto;min-height:44px;padding:0 18px;font-size:15px;}
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none;}
+.filters::-webkit-scrollbar{display:none;}
+.chip{flex:0 0 auto;border:1.5px solid var(--aloe);background:#fff;border-radius:999px;
+  padding:8px 16px;font-size:14px;font-weight:500;cursor:pointer;}
+.chip.on{background:var(--moss);border-color:var(--moss);color:var(--cream);}
+.item{display:flex;gap:12px;align-items:center;background:#fff;border-radius:14px;padding:10px;
+  margin-bottom:10px;border:1px solid rgba(44,52,36,.07);box-shadow:0 2px 10px rgba(44,52,36,.05);
+  width:100%;text-align:left;cursor:pointer;}
+.item:active{background:var(--aloe);}
+.thumb{width:68px;height:68px;border-radius:10px;background:var(--aloe);object-fit:cover;flex:0 0 68px;}
+.item-body{min-width:0;flex:1;}
+.item-name{font-weight:600;font-size:15px;line-height:1.25;margin-bottom:3px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.item-meta{font-size:13px;color:var(--olive);}
+.item-price{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20px;}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
+.badge{font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;border-radius:5px;padding:2px 7px;}
+.badge.cat{background:var(--aloe);color:var(--cypress);}
+.badge.out{background:#eadcdc;color:var(--danger);}
+.empty{text-align:center;color:var(--olive);padding:40px 12px;}
+
+/* ── Editor (hoja a pantalla completa) ── */
+.sheet{position:fixed;inset:0;z-index:50;background:var(--cream);overflow-y:auto;overscroll-behavior:contain;}
+.sheet-top{position:sticky;top:0;z-index:2;background:var(--moss);color:var(--cream);display:flex;
+  align-items:center;gap:10px;padding:12px 14px;padding-top:calc(12px + env(safe-area-inset-top));}
+.sheet-top h2{font-family:'Cormorant Garamond',serif;font-size:22px;flex:1;}
+.back{background:transparent;border:none;color:var(--cream);font-size:15px;font-weight:500;cursor:pointer;padding:8px 4px;}
+.sheet-body{max-width:560px;margin:0 auto;padding:18px 16px 40px;}
+
+/* ── Fotos ── */
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.photo{position:relative;aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:var(--aloe);}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo .x{position:absolute;top:5px;right:5px;width:28px;height:28px;border-radius:50%;border:none;
+  background:rgba(44,52,36,.85);color:#fff;font-size:15px;line-height:1;cursor:pointer;}
+.photo .main{position:absolute;left:0;right:0;bottom:0;background:rgba(44,52,36,.88);color:#fff;
+  font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;text-align:center;padding:5px 2px;border:none;width:100%;cursor:pointer;}
+.photo .main.is{background:var(--gold);cursor:default;}
+.add-photo{aspect-ratio:1/1;border:2px dashed var(--cedar);border-radius:12px;background:transparent;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  color:var(--cypress);font-size:13px;font-weight:600;cursor:pointer;}
+.add-photo b{font-size:26px;font-weight:400;line-height:1;}
+
+/* ── Aviso (toast) y confirmación ── */
+.toasts{position:fixed;left:12px;right:12px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:100;
+  display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;}
+.toast{max-width:420px;width:100%;padding:13px 16px;border-radius:12px;font-size:14.5px;font-weight:500;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);animation:up .25s ease;}
+.toast.ok{background:var(--cypress);color:var(--cream);}
+.toast.err{background:var(--danger);color:#fff;}
+@keyframes up{from{transform:translateY(12px);opacity:0;}to{transform:none;opacity:1;}}
+.modal{position:fixed;inset:0;z-index:90;background:rgba(44,52,36,.55);display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal-box{background:#fff;border-radius:16px;padding:22px 20px;width:100%;max-width:360px;}
+.modal-box h3{font-family:'Cormorant Garamond',serif;font-size:24px;margin-bottom:8px;}
+.modal-box p{font-size:14.5px;color:#555;line-height:1.5;margin-bottom:18px;}
+.modal-box .btn{margin-top:8px;}
+.boot{min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.boot .spinner{border-color:rgba(44,52,36,.2);border-top-color:var(--cypress);width:30px;height:30px;}
+</style>
+</head>
+<body>
+
+<div class="boot" id="boot"><div class="spinner"></div></div>
+
+<!-- LOGIN -->
+<main class="login" id="view-login" hidden>
+  <form class="login-card" id="login-form" autocomplete="on">
+    <h1>Una Montañita</h1>
+    <p class="sub">Panel de administración</p>
+    <div class="field">
+      <label for="login-email">Correo</label>
+      <input class="input" id="login-email" type="email" inputmode="email" autocomplete="username" required>
+    </div>
+    <div class="field">
+      <label for="login-pass">Contraseña</label>
+      <input class="input" id="login-pass" type="password" autocomplete="current-password" required>
+    </div>
+    <button class="btn" id="login-btn" type="submit">Ingresar</button>
+  </form>
+</main>
+
+<!-- LISTA -->
+<div id="view-list" hidden>
+  <header class="topbar">
+    <h1>Una Montañita</h1>
+    <div class="topbar-actions">
+      <a class="link-btn" href="../" target="_blank" rel="noopener">Ver sitio</a>
+      <button class="link-btn" id="logout-btn" type="button">Salir</button>
+    </div>
+  </header>
+  <div class="wrap">
+    <div class="list-head">
+      <h2>Productos</h2>
+      <button class="btn" id="new-btn" type="button">+ Nuevo</button>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div id="items"></div>
+  </div>
+</div>
+
+<!-- EDITOR -->
+<section class="sheet" id="sheet" hidden>
+  <div class="sheet-top">
+    <button class="back" id="sheet-back" type="button">&#8249; Volver</button>
+    <h2 id="sheet-title">Nuevo producto</h2>
+  </div>
+  <form class="sheet-body" id="form" novalidate>
+    <div class="field">
+      <label for="f-nombre">Nombre</label>
+      <input class="input" id="f-nombre" maxlength="120" required>
+    </div>
+    <div class="field">
+      <label for="f-categoria">Sección de la página</label>
+      <select class="select" id="f-categoria">
+        <option value="yerba">Yerbas</option>
+        <option value="mate">Mates</option>
+        <option value="bombilla">Bombillas</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="f-desc">Descripción</label>
+      <textarea class="textarea" id="f-desc" maxlength="1500"></textarea>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label for="f-precio">Precio ($)</label>
+        <input class="input" id="f-precio" type="number" inputmode="numeric" min="0" step="1" required>
+      </div>
+      <div class="field">
+        <label for="f-stock">Stock</label>
+        <input class="input" id="f-stock" type="number" inputmode="numeric" min="0" step="1" required>
+      </div>
+    </div>
+    <div class="field" style="margin-top:-4px"><div class="hint">Stock 0 = aparece como "Sin stock". Para algo que siempre hay, poné 99.</div></div>
+    <div class="field">
+      <label>Fotos</label>
+      <div class="photos" id="photos"></div>
+      <div class="hint">La primera es la que se ve en la tarjeta. Tocá "Principal" en otra para cambiarla. Los clientes pueden deslizar para ver todas.</div>
+      <input type="file" id="f-files" accept="image/*" multiple hidden>
+    </div>
+    <button class="btn" id="save-btn" type="submit">Guardar</button>
+    <button class="btn danger" id="delete-btn" type="button" style="margin-top:12px" hidden>Eliminar producto</button>
+  </form>
+</section>
+
+<div class="toasts" id="toasts"></div>
+<div class="modal" id="modal" hidden></div>
+
+<script type="module" src="./admin.js"></script>
+</body>
+</html>
