@@ -154,6 +154,72 @@ header {
   animation: fadeDown 1.1s ease both;
 }
 
+/* ══ CYBER UNA MONTAÑITA (campaña temporal: se activa y se apaga sola por fecha) ══ */
+.cyber { padding: 6px 14px 26px; max-width: 940px; margin: 0 auto; }
+.cyber[hidden] { display: none; }
+.cyber-inner {
+  background: linear-gradient(160deg, var(--moss) 0%, var(--cypress) 100%);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 32px rgba(44,52,36,0.28);
+  border: 1px solid rgba(201,168,76,0.45);
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.cyber-photo { position: relative; aspect-ratio: 3 / 4; background: var(--aloe); overflow: hidden; }
+.cyber-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
+.cyber-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(44,52,36,0) 55%, rgba(44,52,36,0.9) 100%);
+}
+.cyber-text { padding: 4px 20px 24px; color: var(--cream); text-align: center; margin-top: -34px; position: relative; z-index: 1; }
+.cyber-kicker {
+  display: inline-block; background: var(--gold); color: var(--moss);
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 30px; margin-bottom: 10px;
+}
+.cyber-text h2 {
+  font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 700;
+  line-height: 1.05; letter-spacing: 0.5px; margin-bottom: 8px;
+}
+.cyber-sub { font-size: 14px; opacity: 0.88; margin-bottom: 18px; line-height: 1.5; }
+.cyber-count { display: flex; justify-content: center; gap: 8px; margin-bottom: 14px; }
+.cyber-box {
+  min-width: 62px; padding: 9px 6px 7px; border-radius: 12px;
+  background: rgba(244,242,237,0.1); border: 1px solid rgba(244,242,237,0.22);
+}
+.cyber-box b { display: block; font-family: 'Cormorant Garamond', serif; font-size: 30px; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+.cyber-box span { display: block; font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; opacity: 0.8; margin-top: 4px; }
+.cyber-label { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.8; margin-bottom: 10px; }
+.cyber-note { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 16px; }
+.cyber-note:empty { display: none; }
+.cyber-btn {
+  display: inline-block; background: var(--cream); color: var(--moss); text-decoration: none;
+  font-weight: 700; font-size: 14px; letter-spacing: 0.6px; padding: 13px 30px; border-radius: 30px;
+  transition: transform 0.2s, background 0.2s;
+}
+.cyber-btn:hover { background: #fff; transform: translateY(-2px); }
+@media (min-width: 760px) {
+  .cyber-inner { grid-template-columns: minmax(300px, 400px) 1fr; align-items: stretch; }
+  .cyber-photo { aspect-ratio: auto; min-height: 520px; }
+  .cyber-photo img { position: absolute; inset: 0; }
+  .cyber-photo::after { background: linear-gradient(90deg, rgba(44,52,36,0) 70%, rgba(44,52,36,0.7) 100%); }
+  .cyber-text { margin-top: 0; padding: 34px 34px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+  .cyber-text h2 { font-size: 42px; }
+}
+
+/* precios en oferta */
+.cyber-tag {
+  position: absolute; top: 8px; right: 8px; z-index: 2;
+  background: var(--moss); color: var(--gold); border: 1px solid var(--gold);
+  border-radius: 6px; padding: 3px 9px; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.5px; text-transform: uppercase;
+}
+.price-old { font-size: 15px; font-weight: 600; color: var(--cedar); text-decoration: line-through; margin-right: 6px; }
+.price-new { color: var(--moss); }
+.popup-cyber-note { font-family: 'Jost', sans-serif; font-size: 12.5px; font-weight: 600; color: #7a5c1e; margin-top: 2px; }
+.cart-item-price s { display: block; font-size: 13px; font-weight: 600; color: var(--cedar); }
+
 .stats-strip {
   background: var(--cypress);
   color: white;
@@ -1215,6 +1281,7 @@ footer span { color: var(--aloe); }
       Una Montañita
     </div>
     <div class="menu-dropdown" id="menu-dropdown">
+      <a href="#cyber" id="menu-cyber" onclick="closeMenu()" style="display:none">Cyber</a>
       <a href="#yerbas" onclick="closeMenu()">Yerbas</a>
       <a href="#mates" onclick="closeMenu()">Mates</a>
       <a href="#bombillas" onclick="closeMenu()">Bombillas</a>
@@ -1234,6 +1301,28 @@ footer span { color: var(--aloe); }
   <p>"El sabor que nace de la montaña"</p>
   <div class="hero-badge">🚩 Envíos disponibles · Regalo incluido 🎁</div>
 </div>
+
+<section class="cyber" id="cyber" hidden>
+  <div class="cyber-inner">
+    <div class="cyber-photo">
+      <img src="./cyber.jpg" alt="Cyber Una Montañita" onerror="this.onerror=null;this.src='./torpedo-2.jpg'">
+    </div>
+    <div class="cyber-text">
+      <span class="cyber-kicker">Cyber Monday</span>
+      <h2>Cyber Una Montañita</h2>
+      <p class="cyber-sub" id="cyber-sub"></p>
+      <div class="cyber-label" id="cyber-label">Termina en</div>
+      <div class="cyber-count" id="cyber-count">
+        <div class="cyber-box"><b id="cy-d">0</b><span>Días</span></div>
+        <div class="cyber-box"><b id="cy-h">00</b><span>Horas</span></div>
+        <div class="cyber-box"><b id="cy-m">00</b><span>Min</span></div>
+        <div class="cyber-box"><b id="cy-s">00</b><span>Seg</span></div>
+      </div>
+      <p class="cyber-note" id="cyber-note"></p>
+      <a class="cyber-btn" id="cyber-btn" href="#yerbas" onclick="closeMenu()">Ver ofertas</a>
+    </div>
+  </div>
+</section>
 
 <div class="stats-strip reveal">
   <div class="stat-item">
@@ -1576,6 +1665,36 @@ const PRODUCTOS_RESPALDO = [
 let productos = [];
 let carrito = [];
 
+// ══ CYBER UNA MONTAÑITA — se edita solo este bloque ══════════════════════════
+// productos: { id del producto : PRECIO CYBER }.  Ej: { 7: 10500 } = el producto 7 sale $10.500.
+//            (el precio normal sigue saliendo de tu panel; si el Cyber no es menor, no se aplica)
+// cantidad:  opcional. A partir de "min" unidades del mismo producto se descuenta "extra" % más.
+//            Con min: 0 no hay descuento por cantidad.
+// Si "productos" está vacío, el banner y los descuentos NO aparecen.
+// Fuera del rango inicio-fin, todo vuelve solo a precio normal.
+const CYBER = {
+  inicio: '2026-11-02T00:00:00-03:00',
+  fin:    '2026-11-05T23:59:59-03:00',
+  productos: { 7: 10500, 10: 42000, 13: 26000 },   // 7 Baldo · 10 Torpedo · 13 Bombillón curvo
+  cantidad: { min: 0, extra: 0 },
+};
+function cyberActivo() {
+  const t = Date.now();
+  return Object.keys(CYBER.productos).length > 0 && t >= Date.parse(CYBER.inicio) && t <= Date.parse(CYBER.fin);
+}
+function cyberBase(p) {
+  const v = p ? CYBER.productos[p.id] : 0;
+  return (typeof v === 'number' && v > 0 && v < p.precio) ? v : 0;
+}
+function cyberOn(p) { return !!p && cyberActivo() && p.stock !== 0 && cyberBase(p) > 0; }
+function precioUnit(p, cant) {
+  if (!cyberOn(p)) return p.precio;
+  let pr = cyberBase(p);
+  if (CYBER.cantidad.min > 0 && (cant || 1) >= CYBER.cantidad.min) pr = Math.round(pr * (1 - CYBER.cantidad.extra / 100) / 10) * 10;
+  return pr;
+}
+const fmt = (n) => '$' + n.toLocaleString();
+
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -1599,12 +1718,13 @@ function cardHTML(p, i) {
   return `
     <div class="product-card reveal" style="animation-delay:${i*0.05}s" onclick="abrirPopup(${p.id})">
       ${p.categoria === "yerba" ? '<div class="regalo-tag">🎁 Regalo</div>' : ''}
+      ${cyberOn(p) ? '<div class="cyber-tag">Cyber</div>' : ''}
       <div class="product-img-wrap${p.categoria === "bombilla" ? " contain" : ""}">
         <img src="${esc(p.img)}" alt="${esc(p.nombre)}" onerror="this.style.display='none'">
       </div>
       <div class="product-info">
         <div class="product-name">${esc(p.nombre)}</div>
-        <div class="product-price">$${p.precio.toLocaleString()}</div>
+        <div class="product-price">${cyberOn(p) ? `<span class="price-old">${fmt(p.precio)}</span><span class="price-new">${fmt(precioUnit(p, 1))}</span>` : fmt(p.precio)}</div>
         ${getStockBadge(p.stock)}
         <button class="ver-btn">Ver producto</button>
       </div>
@@ -1643,7 +1763,10 @@ function abrirPopup(id) {
   document.getElementById("popup-regalo").style.display = p.categoria === "yerba" ? "" : "none";
   document.getElementById("popup-name").textContent = p.nombre;
   document.getElementById("popup-desc").textContent = p.desc;
-  document.getElementById("popup-price").textContent = '$' + p.precio.toLocaleString();
+  document.getElementById("popup-price").innerHTML = cyberOn(p)
+    ? `<span class="price-old">${fmt(p.precio)}</span><span class="price-new">${fmt(precioUnit(p, 1))}</span>
+       <div class="popup-cyber-note">Precio Cyber${CYBER.cantidad.min > 0 ? ` · Llevando ${CYBER.cantidad.min} o más, ${CYBER.cantidad.extra}% extra` : ''}</div>`
+    : fmt(p.precio);
   document.getElementById("popup-stock").innerHTML = getStockBadge(p.stock);
   const btn = document.getElementById("popup-add-btn");
   if (p.stock === 0) {
@@ -1699,7 +1822,7 @@ function renderCarrito() {
   cont.innerHTML = carrito.map(p => `
     <div class="cart-item">
       <div class="cart-item-name">${esc(p.nombre)}</div>
-      <div class="cart-item-price">$${(p.precio * p.cantidad).toLocaleString()}</div>
+      <div class="cart-item-price">${precioUnit(p, p.cantidad) < p.precio ? `<s>${fmt(p.precio * p.cantidad)}</s>` : ''}${fmt(precioUnit(p, p.cantidad) * p.cantidad)}</div>
       <div class="qty-controls">
         <button class="qty-btn" onclick="cambiarCantidad(${p.id}, -1)">−</button>
         <span>${p.cantidad}</span>
@@ -1707,8 +1830,8 @@ function renderCarrito() {
       </div>
     </div>
   `).join('');
-  const total = carrito.reduce((acc, p) => acc + (p.precio * p.cantidad), 0);
-  totalEl.textContent = 'Total: $' + total.toLocaleString();
+  const total = carrito.reduce((acc, p) => acc + (precioUnit(p, p.cantidad) * p.cantidad), 0);
+  totalEl.textContent = 'Total: ' + fmt(total);
 }
 
 function cambiarCantidad(id, delta) {
@@ -1728,7 +1851,17 @@ function comprarPorWpp() {
   lineas.push("Quisiera realizar el siguiente pedido:");
   lineas.push("");
   lineas.push("🛒 Pedido:");
-  carrito.forEach(p => { lineas.push("• " + p.nombre + " x" + p.cantidad); });
+  let hayCyber = false;
+  carrito.forEach(p => {
+    const cy = precioUnit(p, p.cantidad) < p.precio;
+    if (cy) hayCyber = true;
+    lineas.push("• " + p.nombre + " x" + p.cantidad + (cy ? " — " + fmt(precioUnit(p, p.cantidad) * p.cantidad) + " (precio CYBER)" : ""));
+  });
+  if (hayCyber) {
+    lineas.push("");
+    lineas.push("🏷️ Pedido con precios CYBER UNA MONTAÑITA");
+    lineas.push("Total con descuentos: " + fmt(carrito.reduce((acc, p) => acc + precioUnit(p, p.cantidad) * p.cantidad, 0)));
+  }
   lineas.push("");
   lineas.push("💰 ¿Pueden confirmarme precio y disponibilidad?");
   lineas.push("📍 ¿Me indican el costo y tiempos de envío?");
@@ -1790,6 +1923,42 @@ function observeAll() {
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
+
+// ── Banner Cyber: visibilidad y cuenta regresiva ──
+const CY_CAT_ORDEN = ["yerba", "mate", "bombilla"];
+const CY_ANCLA = { yerba: "#yerbas", mate: "#mates", bombilla: "#bombillas" };
+const AR = "America/Argentina/Buenos_Aires";
+function rangoFechas() {
+  const a = new Date(CYBER.inicio), b = new Date(CYBER.fin);
+  const d = (x) => x.toLocaleDateString("es-AR", { day: "numeric", timeZone: AR });
+  const m = (x) => x.toLocaleDateString("es-AR", { month: "long", timeZone: AR });
+  return m(a) === m(b) ? "Del " + d(a) + " al " + d(b) + " de " + m(b) : "Del " + d(a) + " de " + m(a) + " al " + d(b) + " de " + m(b);
+}
+let cyberEstabaActivo = null;
+function cyberTick() {
+  const sec = document.getElementById("cyber");
+  const t = Date.now(), ini = Date.parse(CYBER.inicio), fin = Date.parse(CYBER.fin);
+  const hay = Object.keys(CYBER.productos).length > 0 && t <= fin;
+  const activo = cyberActivo();
+  sec.hidden = !hay;
+  document.getElementById("menu-cyber").style.display = hay ? "" : "none";
+  if (hay) {
+    const faltan = Math.max(0, (t < ini ? ini : fin) - t);
+    document.getElementById("cyber-label").textContent = t < ini ? "Empieza en" : "Termina en";
+    document.getElementById("cy-d").textContent = Math.floor(faltan / 864e5);
+    document.getElementById("cy-h").textContent = String(Math.floor(faltan / 36e5) % 24).padStart(2, "0");
+    document.getElementById("cy-m").textContent = String(Math.floor(faltan / 6e4) % 60).padStart(2, "0");
+    document.getElementById("cy-s").textContent = String(Math.floor(faltan / 1e3) % 60).padStart(2, "0");
+    document.getElementById("cyber-sub").textContent = rangoFechas() + " · descuentos en productos seleccionados";
+    document.getElementById("cyber-note").textContent = CYBER.cantidad.min > 0 ? "Llevando " + CYBER.cantidad.min + " o más del mismo producto, " + CYBER.cantidad.extra + "% de descuento extra" : "";
+    const cat = CY_CAT_ORDEN.find(c => productos.some(p => p.categoria === c && cyberOn(p)));
+    if (cat) document.getElementById("cyber-btn").setAttribute("href", CY_ANCLA[cat]);
+  }
+  if (cyberEstabaActivo !== null && cyberEstabaActivo !== activo) { renderProductos(); if (typeof renderCarrito === "function") renderCarrito(); }
+  cyberEstabaActivo = activo;
+}
+cyberTick();
+setInterval(cyberTick, 1000);
 
 // Si Supabase no responde en 5 s, se muestra el respaldo
 setTimeout(window.usarRespaldo, 5000);
