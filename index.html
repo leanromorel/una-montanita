@@ -1285,6 +1285,7 @@ footer span { color: var(--aloe); }
       <a href="#yerbas" onclick="closeMenu()">Yerbas</a>
       <a href="#mates" onclick="closeMenu()">Mates</a>
       <a href="#bombillas" onclick="closeMenu()">Bombillas</a>
+      <a href="#combos" onclick="closeMenu()">Combos</a>
       <a href="#como-comprar" onclick="closeMenu()">Cómo comprar</a>
       <a href="#porque" onclick="closeMenu()">Por qué elegirnos</a>
     </div>
@@ -1397,6 +1398,17 @@ footer span { color: var(--aloe); }
   </div>
 </div>
 <div class="products" id="bombillas-grid"></div>
+
+<div class="section-header reveal" id="combos">
+  <h2>Nuestros Combos</h2>
+  <p>Todo lo que necesitás para tu mate, en un solo pedido</p>
+  <div class="divisor" style="margin-top:14px;">
+    <div class="divisor-linea"></div>
+    <span class="divisor-icon">🎁</span>
+    <div class="divisor-linea right"></div>
+  </div>
+</div>
+<div class="products" id="combos-grid"></div>
 
 <div class="como-comprar reveal" id="como-comprar">
   <h2>¿Cómo comprar?</h2>
@@ -1737,6 +1749,7 @@ function renderProductos() {
     { cat: "yerba",    cont: "productos",      cab: ["yerbas", "regalo-banner"] },
     { cat: "mate",     cont: "mates-track",    cab: ["mates"] },
     { cat: "bombilla", cont: "bombillas-grid", cab: ["bombillas"] },
+    { cat: "combo",    cont: "combos-grid",    cab: ["combos"] },
   ];
   secciones.forEach(sec => {
     const lista = productos.filter(p => p.categoria === sec.cat);
@@ -1925,8 +1938,8 @@ function observeAll() {
 }
 
 // ── Banner Cyber: visibilidad y cuenta regresiva ──
-const CY_CAT_ORDEN = ["yerba", "mate", "bombilla"];
-const CY_ANCLA = { yerba: "#yerbas", mate: "#mates", bombilla: "#bombillas" };
+const CY_CAT_ORDEN = ["yerba", "mate", "bombilla", "combo"];
+const CY_ANCLA = { yerba: "#yerbas", mate: "#mates", bombilla: "#bombillas", combo: "#combos" };
 const AR = "America/Argentina/Buenos_Aires";
 function rangoFechas() {
   const a = new Date(CYBER.inicio), b = new Date(CYBER.fin);
