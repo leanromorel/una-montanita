@@ -2,7 +2,7 @@
 import { supabase, estaConfigurado, BUCKET, SUPABASE_URL } from '../supabaseClient.js';
 
 const $ = (id) => document.getElementById(id);
-const CATEGORIAS = { yerba: 'Yerbas', mate: 'Mates', bombilla: 'Bombillas' };
+const CATEGORIAS = { yerba: 'Yerbas', mate: 'Mates', bombilla: 'Bombillas', combo: 'Combos' };
 const MAX_LADO = 1600;       // px, lado mayor de la foto subida (no se recorta)
 const CALIDAD = 0.85;
 const PREFIJO_PUBLICO = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/`;
